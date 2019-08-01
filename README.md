@@ -1,10 +1,10 @@
 # Jetpack
 
-Jetpack contains useful Ansible add-ons for network engineers and operators.
+Jetpack is an Ansible collection containing useful Ansible add-ons for network engineers and operators.
 
 ## Compatibility
 
-Ansible 2.9 required.  
+Ansible 2.9 required.
 
 ## Callback plugins
 
