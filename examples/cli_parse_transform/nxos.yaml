@@ -1,0 +1,15 @@
+- hosts: nxos101
+  gather_facts: false
+  collections:
+  - nmake.jetpack
+  tasks:
+  - include_tasks: "{{ item }}"
+    with_items:
+    - flatten_lists_of_dicts.yaml
+    - keep_keys.yaml
+    - nxos_flatten_table_row.yaml
+    - str_to_native.yaml
+    - rekey_on_members.yaml
+    - replace_keys.yaml
+    - stats.yaml
+    - unnest.yaml

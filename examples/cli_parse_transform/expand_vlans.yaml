@@ -1,0 +1,19 @@
+- cli_parse_transform:
+    engine: native_json
+    commands:
+    - command: show interface Ethernet1 switchport
+      set_fact: True
+- debug:
+    var: ansible_facts
+- cli_parse_transform:
+    engine: native_json
+    commands:
+    - command: show interface Ethernet1 switchport
+      set_fact: True
+      transform:
+      - name: expand_vlans
+        keys:
+        - trunkAllowedVlans
+
+- debug:
+    var: ansible_facts

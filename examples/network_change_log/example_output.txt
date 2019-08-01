@@ -1,0 +1,107 @@
+PLAY [all] *************************************************************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************
+ok: [eos101]
+ok: [vyos101]
+
+TASK [set_fact] ********************************************************************************************************
+ok: [eos101]
+ok: [vyos101]
+
+PLAY [eos] *************************************************************************************************************
+
+TASK [Configure hostname and domain-name] ******************************************************************************
+ok: [eos101]
+
+TASK [Change the description of an interface and show the command output] **********************************************
+changed: [eos101]
+eos101:
+- task: Change the description of an interface and show the command output
+  commands:
+  - interface Ethernet2
+  - description 1559841779
+
+
+PLAY [vyos] ************************************************************************************************************
+
+TASK [Configure hostname and domain-name] ******************************************************************************
+ok: [vyos101]
+
+TASK [Change the description of an interface] **************************************************************************
+changed: [vyos101]
+
+TASK [debug] ***********************************************************************************************************
+ok: [vyos101] => {
+    "msg": "Show the last log entry for this host"
+}
+vyos101:
+- task: Change the description of an interface
+  commands:
+  - set interfaces ethernet eth2 description 1559841779
+
+
+PLAY [all] *************************************************************************************************************
+
+TASK [At any point in the play, show the full change log for the play host] ********************************************
+ok: [vyos101] => {
+    "msg": "Current change log"
+}
+vyos101:
+- task: Change the description of an interface
+  commands:
+  - set interfaces ethernet eth2 description 1559841779
+
+ok: [eos101] => {
+    "msg": "Current change log"
+}
+eos101:
+- task: Change the description of an interface and show the command output
+  commands:
+  - interface Ethernet2
+  - description 1559841779
+
+
+TASK [debug] ***********************************************************************************************************
+ok: [eos101] => {
+    "msg": "Enable per task logging for the rest of the plabook"
+}
+
+TASK [Save the configuration if anything has changed] ******************************************************************
+changed: [vyos101]
+vyos101:
+- task: Save the configuration if anything has changed
+  commands:
+  - write
+
+changed: [eos101]
+eos101:
+- task: Save the configuration if anything has changed
+  commands:
+  - copy run start
+
+
+TASK [Save the change log for each host to a file] *********************************************************************
+changed: [vyos101]
+changed: [eos101]
+
+PLAY RECAP *************************************************************************************************************
+eos101                     : ok=8    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+vyos101                    : ok=8    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+
+NETWORK CHANGE LOG *****************************************************************************************************
+eos101:
+- task: Change the description of an interface and show the command output
+  commands:
+  - interface Ethernet2
+  - description 1559841779
+- task: Save the configuration if anything has changed
+  commands:
+  - copy run start
+vyos101:
+- task: Change the description of an interface
+  commands:
+  - set interfaces ethernet eth2 description 1559841779
+- task: Save the configuration if anything has changed
+  commands:
+  - write

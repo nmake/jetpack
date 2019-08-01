@@ -1,0 +1,23 @@
+- cli_parse_transform:
+    engine: native_json
+    commands:
+    - command: show interface status
+      set_fact: True
+      transform:
+      - name: set_root_key
+        key: int_status_before_changes
+- debug:
+    var: ansible_facts
+- cli_parse_transform:
+    engine: native_json
+    commands:
+    - command: show interface status
+      set_fact: True
+      transform:
+      - name: set_root_key
+        key: int_status_after_changes
+- debug:
+    var: ansible_facts
+- assert:
+    that: |
+      "{{ int_status_before_changes == int_status_after_changes }}"

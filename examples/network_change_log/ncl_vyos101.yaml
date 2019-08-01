@@ -1,0 +1,42 @@
+summary:
+    changed: 2
+    failed: 0
+    ok: 3
+    skipped: 0
+    total: 3
+    unreachable: 0
+tasks:
+-   action: vyos_config
+    args:
+        lines:
+        - set interfaces ethernet eth2 description {{ timestamp }}
+    changed: true
+    commands:
+    - set interfaces ethernet eth2 description 1564673132
+    duration: '0:00:04.006111'
+    end: '2019-08-01 08:25:44.869940'
+    failed: false
+    loop: null
+    name: Change the description of an interface
+    ok: true
+    skipped: false
+    start: '2019-08-01 08:25:40.863829'
+    unreachable: false
+-   action: cli_command
+    args:
+        command: '{{ save_command[ansible_network_os] }}'
+    changed: true
+    commands:
+    - write
+    duration: '0:00:00.990571'
+    end: '2019-08-01 08:25:48.944453'
+    failed: false
+    loop: null
+    name: Save the configuration if anything has changed
+    ok: true
+    skipped: false
+    start: '2019-08-01 08:25:47.953882'
+    unreachable: false
+time:
+    elapsed: '0:00:18.181002'
+    start: '2019-08-01 08:25:30.763451'

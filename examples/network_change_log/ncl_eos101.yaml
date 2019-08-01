@@ -1,0 +1,45 @@
+summary:
+    changed: 2
+    failed: 0
+    ok: 3
+    skipped: 0
+    total: 3
+    unreachable: 0
+tasks:
+-   action: eos_config
+    args:
+        lines:
+        - description {{ timestamp }}
+        parents: interface Ethernet2
+    changed: true
+    commands:
+    - interface Ethernet2
+    - description 1564673132
+    duration: '0:00:03.659610'
+    end: '2019-08-01 08:25:39.303763'
+    failed: false
+    loop: null
+    name: Change the description of an interface and show the command output by using
+        the 'ncl' magic tag
+    ok: true
+    skipped: false
+    start: '2019-08-01 08:25:35.644153'
+    unreachable: false
+-   action: cli_command
+    args:
+        command: '{{ save_command[ansible_network_os] }}'
+    changed: true
+    commands:
+    - copy run start
+    duration: '0:00:01.390564'
+    end: '2019-08-01 08:25:49.323883'
+    failed: false
+    loop: null
+    name: Save the configuration if anything has changed
+    ok: true
+    skipped: false
+    start: '2019-08-01 08:25:47.933319'
+    unreachable: false
+time:
+    elapsed: '0:00:18.560432'
+    start: '2019-08-01 08:25:30.763451'

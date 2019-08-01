@@ -1,0 +1,17 @@
+- cli_parse_transform:
+    engine: native_json
+    commands:
+    - command: show interface counters
+      set_fact: True
+- debug:
+    var: ansible_facts
+- cli_parse_transform:
+    engine: native_json
+    commands:
+    - command: sho interface counters
+      set_fact: True
+      transform:
+      - name: str_to_native
+      - name: nxos_flatten_table_row
+- debug:
+    var: ansible_facts

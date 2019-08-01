@@ -1,0 +1,254 @@
+- hosts: ios101
+  gather_facts: false
+  collections:
+  - nmake.jetpack
+  tasks:
+  - cli_parse_transform:
+      engine: pyats
+      commands:
+      - command: show version
+        set_fact: True
+        transform:
+        - name: keep_keys
+          keys:
+          - platform
+          - version.*
+          - os
+      - command: show interfaces
+        set_fact: True
+        transform:
+        - name: set_root_key
+          key: interfaces
+        - name: stats
+          only_stats: True
+          keys:
+          - enabled
+          - oper_status
+      - command: show interfaces
+        set_fact: true
+        transform:
+        - name: keep_keys
+          keys:
+          - enabled
+          - oper_status
+        - name: set_root_key
+          key: interface_status
+      - command: show arp
+        set_fact: true
+        transform:
+        - name: stats
+          keys:
+          - origin
+        - name: set_root_key
+          key: arp_neighbors
+  - debug:
+      var: ansible_facts
+
+- hosts: nxos101
+  gather_facts: false
+  collections:
+  - nmake.jetpack
+  tasks:
+  - cli_parse_transform:
+      engine: native_json
+      commands:
+      - command: show interface
+        set_fact: True
+        transform:
+        - name: nxos_flatten_table_row
+        - name: stats
+          only_stats: True
+          keys:
+          - admin_state
+          - state
+      - command: show interface
+        set_fact: True
+        transform:
+        - name: nxos_flatten_table_row
+          plural: True
+        - name: rekey_on_members
+          members:
+          - interface
+        - name: keep_keys
+          keys:
+          - .*state.*
+          - interface
+      - command: show ip interface vrf all
+        set_fact: True
+        transform:
+        - name: nxos_flatten_table_row
+          plural: True
+        - name: rekey_on_members
+          members:
+          - intf-name
+        - name: keep_keys
+          keys:
+          - masklen
+          - prefix
+        - name: replace_keys
+          keys:
+          - before: ^intfs$
+            after: interfaces
+        - name: str_to_native
+      - command: show interface switchport
+        set_fact: True
+        transform:
+        - name: nxos_flatten_table_row
+          plural: True
+        - name: keep_keys
+          keys:
+          - interface
+          - oper_mode
+          - access_vlan
+          - trunk_vlans
+        - name: rekey_on_members
+          members:
+          - interface
+        - name: str_to_native
+        - name: expand_vlans
+          keys:
+          - trunk_vlans
+      - command: show ip route vrf all
+        set_fact: True
+        transform:
+        - name: nxos_flatten_table_row
+          plural: True
+        - name: rekey_on_members
+          members:
+          - vrf-name-out
+          - ipnexthop
+        - name: keep_keys
+          keys:
+          - ipprefix
+        - name: flatten_list_of_dicts
+          flatten:
+          - key: .*
+            value: ipprefix
+        - name: replace_keys
+          keys:
+          - before: vrfs
+            after: routes_by_vrf_next_hop
+        - name: unnest
+          keys:
+          - prefixs
+      - command: show ip route vrf all
+        set_fact: True
+        transform:
+        - name: nxos_flatten_table_row
+          plural: True
+        - name: rekey_on_members
+          members:
+          - vrf-name-out
+        - name: stats
+          keys:
+          - attached
+        - name: keep_keys
+          keys:
+          - 'true'
+          - 'false'
+          - total
+  - debug:
+      var: ansible_facts
+
+- hosts: eos101
+  gather_facts: false
+  collections:
+  - nmake.jetpack
+  tasks:
+  - cli_parse_transform:
+      engine: native_json
+      commands:
+        - command: show version
+          set_fact: True
+          transform:
+          - name: camel_to_snake
+          - name: keep_keys
+            keys:
+            - version
+            - model_name
+          - name: set_root_key
+            key: system_info
+        - command: show version
+          set_fact: True
+          transform:
+          - name: camel_to_snake
+          - name: keep_keys
+            keys:
+            - mem.*
+          - name: set_root_key
+            key: memory_stats
+        - command: show interface
+          set_fact: True
+          transform:
+          - name: camel_to_snake
+          - name: keep_keys
+            keys:
+            - description
+            - hardware
+            - interface_status
+            - address
+            - dhcp
+          - name: stats
+            keys:
+            - interface_status
+            - hardware
+            - address
+        - command: show interface
+          set_fact: True
+          transform:
+          - name: camel_to_snake
+          - name: rekey_on_members
+            members:
+            - interface_status
+          - name: keep_keys
+            keys:
+            - name
+          - name: flatten_list_of_dicts
+            flatten:
+            - key: .*
+              value: name
+          - name: replace_keys
+            keys:
+            - before: ^(interfaces)$
+              after: \1_by_status
+        - command: show interface switchport
+          set_fact: True
+          transform:
+          - name: camel_to_snake
+          - name: keep_keys
+            keys:
+            - enabled
+            - mode
+          - name: unnest
+            keys:
+            - switchport_info
+        - command: show lldp neighbors
+          set_fact: True
+          transform:
+          - name: camel_to_snake
+          - name: rekey_on_members
+            members:
+            - port
+          - name: keep_keys
+            keys:
+            - neighbor_device
+          - name: flatten_list_of_dicts
+            flatten:
+            - key: .*
+              value: neighbor_device
+          - name: set_root_key
+            key: lldp_neighbors_by_local_port
+          - name: unnest
+            keys:
+            - lldp_neighbors
+        - command: show lldp neighbors
+          set_fact: True
+          transform:
+          - name: camel_to_snake
+          - name: stats
+            only_stats: True
+            keys:
+            - port
+            - neighbor_device
+  - debug:
+      var: ansible_facts

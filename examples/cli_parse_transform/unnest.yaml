@@ -1,0 +1,39 @@
+- cli_parse_transform:
+    engine: native_json
+    commands:
+    - command: show ip route vrf management
+      set_fact: True
+      transform:
+      - name: nxos_flatten_table_row
+        plural: True
+- debug:
+    var: ansible_facts
+- cli_parse_transform:
+    engine: native_json
+    commands:
+    - command: show ip route vrf all
+      set_fact: True
+      transform:
+      - name: nxos_flatten_table_row
+        plural: True
+      - name: rekey_on_members
+        members:
+        - vrf-name-out
+        - ipnexthop
+      - name: keep_keys
+        keys:
+        - ipprefix
+      - name: flatten_list_of_dicts
+        flatten:
+        - key: .*
+          value: ipprefix
+      - name: replace_keys
+        keys:
+        - before: vrfs
+          after: routes_by_vrf_next_hop
+      - name: unnest
+        keys:
+        - prefixs
+
+- debug:
+    var: ansible_facts

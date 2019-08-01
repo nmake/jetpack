@@ -1,0 +1,63 @@
+- hosts: all
+  gather_facts: True
+  tasks:
+  - set_fact:
+      timestamp: "{{ ansible_date_time.epoch }}"
+      domain_name: cidrblock.net
+  
+- hosts: eos
+  gather_facts: False
+  tasks:
+  - name: Configure hostname and domain-name
+    eos_system:
+      hostname: "{{ inventory_hostname }}"
+      domain_name: "{{ domain_name }}"
+  - name: Change the description of an interface and show the command output by using the 'ncl' magic tag
+    eos_config:
+      lines:
+      - description {{ timestamp }}
+      parents: interface Ethernet2
+    tags: ['ncl']
+
+- hosts: vyos
+  gather_facts: False
+  tasks:
+  - name: Configure hostname and domain-name
+    vyos_system:
+      host_name: "{{ inventory_hostname }}"
+      domain_name: "{{ domain_name }}"
+  - name: Change the description of an interface
+    vyos_config:
+      lines:
+      - set interfaces ethernet eth2 description {{ timestamp }}
+  - debug:
+      msg: Show the last log entry for this host by using the 'ncl_last' magic tag
+    tags: ['ncl_last']
+
+- hosts: all
+  gather_facts: false
+  vars:
+    save_command:
+      eos: copy run start
+      vyos: write
+  tasks:
+  - name: At any point in the play, show the full change log for the play host by using the 'ncl_full' magic tag
+    debug:
+      msg: "Current change log"
+    tags: ['ncl_full']
+  - debug:
+      msg: Enable per task logging for the rest of the plabook by using the 'ncl_logging_enable' magic tag
+    tags: ['ncl_logging_enable']
+    run_once: true
+  - name: Save the configuration if anything has changed
+    cli_command:
+      command: "{{ save_command[ansible_network_os] }}"
+    when: network_change_log is defined and network_change_log['summary']['changed'] > 0
+    changed_when: True
+  - name: Save the network change log for each host to a file
+    copy:
+      content: "{{ network_change_log|to_nice_yaml }}"
+      dest: "ncl_{{ inventory_hostname }}.yaml"
+    when: network_change_log is defined
+  - debug:
+      var: hostvars[inventory_hostname]['network_change_log']

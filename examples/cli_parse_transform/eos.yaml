@@ -1,0 +1,10 @@
+- hosts: eos101
+  gather_facts: false
+  collections:
+  - nmake.jetpack
+  tasks:
+  - include_tasks: "{{ item }}"
+    with_items:
+    # - camel_to_snake.yaml
+    - expand_vlans.yaml
+    # - set_root_key.yaml
