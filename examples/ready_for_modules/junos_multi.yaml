@@ -1,4 +1,4 @@
-- hosts: eos
+- hosts: all
   gather_facts: False
   collections:
   - nmake.jetpack
