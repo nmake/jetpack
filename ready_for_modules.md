@@ -13,8 +13,8 @@ Note:  `ready_for_modules` is only as good as the documentation for a given modu
   - nmake.jetpack
   vars:
     interfaces:
-    - name: connection to lx12345
-      description: 'Configured and Merged by Ansible Network'
+    - name: GigabitEthernet0/3
+      description: connection to lx12345
       enabled: True
       metadata:
         int_type: host port
@@ -45,9 +45,9 @@ Note:  `ready_for_modules` is only as good as the documentation for a given modu
 ready:
   ios_interfaces:
     config:
-    - description: Configured and Merged by Ansible Network
+    - description: connection to lx12345
       enabled: true
-      name: connection to lx12345
+      name: GigabitEthernet0/2
     - description: connection to rhv12345
       duplex: full
       enabled: false
