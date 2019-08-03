@@ -10,7 +10,6 @@ from ansible.module_utils._text import to_bytes
 from ansible.errors import AnsibleModuleError
 from ansible.template import Templar
 
-import q
 try:
     from genie.conf.base import Device
     from genie.libs.parser.utils import get_parser

@@ -1,0 +1,35 @@
+- hosts: eos
+  gather_facts: False
+  collections:
+  - nmake.jetpack
+  vars:
+    interfaces:
+    - name: ge-0/0/1
+      description: 'Configured by Ansible-1'
+      ipv4:
+      - address: 192.168.1.10/24
+      ipv6:
+      - address: 8d8d:8d01::1/64
+      speed: 1g
+      mtu: 1800
+    - name: ge-0/0/2
+      description: 'Configured by Ansible -2'
+      ipv4:
+      - address: 192.168.1.11/24
+      ipv6:
+      - address: 8d8d:8d01::2/64
+
+  tasks:
+  - ready_for_modules:
+      modules:
+      - name: junos_interfaces
+        data:
+          config: "{{ interfaces }}"
+      - name: junos_l3_interfaces
+        data:
+          config: "{{ interfaces }}"
+    register: result
+  - debug:
+      var: result['ready']['junos_interfaces']
+  - debug:
+      var: result['ready']['junos_l3_interfaces']

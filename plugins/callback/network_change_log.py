@@ -140,7 +140,7 @@ class CallbackModule(CallbackBase):
                 task_start_time = datetime.strptime(this_task['start'],
                                                     "%Y-%m-%d %H:%M:%S.%f")
 
-                this_task['changed'] = result._result['changed']
+                this_task['changed'] = result._result.get('changed')
                 this_task['failed'] = (stat == 'failed')
                 this_task['ok'] = (stat == 'ok')
                 this_task['skipped'] = (stat == 'skipped')

@@ -1,0 +1,46 @@
+- hosts: eos
+  gather_facts: False
+  collections:
+  - nmake.jetpack
+  vars:
+    hostconfig:
+      host_name: vyos01
+      description: Virtual appliance for module testing
+      version: VyOS 1.2.0-rolling+201905140337
+      domain_name: test.example.com
+      domain_search:
+      - sub1.example.com
+      - sub2.example.com
+      name_servers:
+      - 8.8.8.8
+      - 8.8.4.4
+      interfaces:
+        Eth2:
+          name: eth2
+          description: 'Configured by Ansible'
+          enabled: True
+          metadata:
+            int_type: trunk port
+            last_change: 9/3/2019
+            notes:
+            - 9/3/2019, description updated BT
+          vifs:
+            - vlan_id: 200
+              description: "VIF 200 - ETH2"
+        Eth3:
+          description: 'Configured by Ansible'
+          mtu: 1500
+
+
+  tasks:
+  - ready_for_modules:
+      modules:
+      - name: vyos_system
+        data: "{{ hostconfig }}"
+      - name: vyos_interfaces
+        data:
+          config: "{{ hostconfig.interfaces.values() | list }}"
+    register: result
+
+  - debug:
+      var: result

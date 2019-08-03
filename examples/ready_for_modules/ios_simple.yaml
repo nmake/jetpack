@@ -1,0 +1,30 @@
+- hosts: ios
+  gather_facts: False
+  collections:
+  - nmake.jetpack
+  vars:
+    interfaces:
+    - name: GigabitEthernet2
+      description: 'Configured and Merged by Ansible Network'
+      metadata:
+        int_type: host port
+        last_changed: 9/3/2020
+        changed_by: Brad Thornton
+    - name: GigabitEthernet3
+      description: 'Configured and Merged by Ansible Network'
+      metadata:
+        int_type: rhv uplink
+        last_changed: 9/3/2020
+        changed_by: Brad Thornton
+  tasks:
+  - ready_for_modules:
+      modules:
+      - name: ios_interfaces
+        data:
+          config: "{{ interfaces }}"
+          state: merged
+    register: result
+
+  - name: Configure the interfaces
+    ios_interfaces:
+      config: "{{ result.ready.ios_interfaces.config }}"
