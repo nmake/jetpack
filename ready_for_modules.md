@@ -13,7 +13,7 @@ Note:  `ready_for_modules` is only as good as the documentation for a given modu
   - nmake.jetpack
   vars:
     interfaces:
-    - name: GigabitEthernet0/3
+    - name: GigabitEthernet0/2
       description: connection to lx12345
       enabled: True
       metadata:
