@@ -1,0 +1,23 @@
+- cli_parse_transform:
+    engine: native_xml
+    commands:
+    - command: show interface status
+      set_fact: True
+      transform:
+      - name: set_root_key
+        key: int_status_xml
+      - name: nxos_flatten_table_row
+      - name: unnest
+        keys:
+        - __readonly__
+        - status
+        - interface
+        - show
+        - nf:data
+        - 'nf:rpc-reply'
+      - name: replace_keys
+        keys:
+        - before: '^@xmlns.*'
+          after: ''
+- debug:
+    var: ansible_facts['int_status_xml']

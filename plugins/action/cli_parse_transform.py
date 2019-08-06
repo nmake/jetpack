@@ -23,6 +23,13 @@ try:
 except ImportError:
     HAS_PYATS = False
 
+try:
+    import xmltodict
+    HAS_XMLTODICT = True
+except ImportError:
+    HAS_XMLTODICT = False
+
+
 ARGSPEC = {
     'argument_spec': {
         'commands':
@@ -49,7 +56,7 @@ ARGSPEC = {
         'engine':
             {
                 'type': 'str',
-                'choices': ['pyats', 'native_json']
+                'choices': ['pyats', 'native_json', 'native_xml']
             }
     }
 }
@@ -116,6 +123,10 @@ class ActionModule(ActionBase):
                 self._errors.append("Genie not found. Run 'pip install genie'")
             if not HAS_PYATS:
                 self._errors.append("pyATS not found. Run 'pip install pyats'")
+        elif self._engine == "native_xml":
+            if not HAS_XMLTODICT:
+                self._errors.append("xmltodict not found."
+                                    " Run 'pip install xmltodict'")
 
     def _check_network_os(self):
         if not self._network_os:
@@ -189,18 +200,26 @@ class ActionModule(ActionBase):
                 append_json = " | json"
             for command in self._commands:
                 command['command'] += append_json
+        elif self._engine == 'native_xml':
+            append_xml = " | xmlout"
+            for command in self._commands:
+                command['command'] += append_xml
 
     def _parse_stdout(self):
         for command in self._commands:
             stdout = self._cmd_dict.get(command['command'])
             entry = {"command": command['command']}
-
             try:
                 if self._engine == 'pyats':
                     parsed = self._pyats_device.parse(command['command'],
                                                       output=stdout)
                 elif self._engine == 'native_json':
                     parsed = stdout
+                elif self._engine == 'native_xml':
+                    splitted = stdout.splitlines()
+                    if splitted[-1] == ']]>]]>':
+                        stdout = '\n'.join(splitted[:-1])
+                    parsed = xmltodict.parse(stdout)
 
             except Exception:  # pylint: disable=W0703
                 self._errors.append("Unable to parse output for command '{}'"

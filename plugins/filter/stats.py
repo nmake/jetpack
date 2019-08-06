@@ -3,7 +3,6 @@ from ansible.errors import AnsibleFilterError
 from ansible.module_utils.network.common.utils import dict_merge
 from collections import Counter
 
-import q
 
 def _stats(parsed, key, statsd):
     if isinstance(parsed, list):
@@ -41,7 +40,6 @@ def _stats(parsed, key, statsd):
 
 
 def stats(parsed, keys, only_stats=False):
-    q(keys, only_stats)
     statsd = {}
     for key in keys:
         parsed, statsd = _stats(parsed, key, statsd)

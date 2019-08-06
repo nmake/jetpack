@@ -3,7 +3,7 @@
 `cli_parse_transform` is an Ansible module that combines the running of commands on a network device with the parsing and transformation of the resulting structured data.
 
 Additionally `cli_parse_transform` can generate statisitics from the parsed data and optionally store the parsed data as Ansible facts.
- 
+
 # Quick start
 
 ```
@@ -34,7 +34,7 @@ Additionally `cli_parse_transform` can generate statisitics from the parsed data
 
 # Module parameters
 
-- `engine`: (required) Specific the parsing engine to be used, either `native_json` or `pyats`. For `pyats` the pyats python library needs to be installed on the ansible control node.
+- `engine`: (required) Specific the parsing engine to be used, either `native_json`, `native_xml` or `pyats`. For `pyats` the pyats python library needs to be installed on the ansible control node. For `native_xml` the `xmltodict` python library needs to be installed
 - `commands`: (required) A list of commands to be run on the network device and parsed. Each entry in the list of `commands` has the following parameters available:
   - `command`: (required) The command to be issued on the network device
   - `set_fact`: (optional) Set the parser output as an Ansible fact for the host in play.

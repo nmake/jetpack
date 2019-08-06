@@ -13,3 +13,4 @@
     - replace_keys.yaml
     - stats.yaml
     - unnest.yaml
+    - nxos_xml.yaml

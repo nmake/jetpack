@@ -13,7 +13,8 @@ def replace_keys(parsed, keys):
             new_key = k
             for key in keys:
                 new_key = re.sub(key['before'], key['after'], new_key)
-                working[new_key] = replace_keys(val, keys)
+                if new_key:
+                    working[new_key] = replace_keys(val, keys)
         return working
     return parsed
 
