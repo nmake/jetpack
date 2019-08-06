@@ -1,0 +1,22 @@
+- cli_parse_transform:
+    engine: native_xml
+    commands:
+    - command: show version
+      set_fact: True
+      transform:
+      - name: set_root_key
+        key: show_version
+      - name: nxos_flatten_table_row
+      - name: unnest
+        keys:
+        - __readonly__
+        - version
+        - show
+        - nf:data
+        - nf:rpc-reply
+      - name: replace_keys
+        keys:
+        - before: '^@xmlns.*'
+          after: ''
+- debug:
+    var: ansible_facts['show_version']
