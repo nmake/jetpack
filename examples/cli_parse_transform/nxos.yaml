@@ -15,3 +15,4 @@
     - unnest.yaml
     - nxos_xml.yaml
     - nxos_xml_version.yaml
+    - nxos_xml_multi.yaml

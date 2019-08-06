@@ -1,0 +1,15 @@
+- name: set_root_key
+  key: "{{ command.split(' ')|join('_') }}"
+- name: nxos_flatten_table_row
+- name: unnest
+  keys:
+  - __readonly__
+{% for part in command.split(' ') %}
+  - {{ part }}
+{% endfor %}
+  - nf:data
+  - nf:rpc-reply
+- name: replace_keys
+  keys:
+  - before: '^@xmlns.*'
+    after: ''

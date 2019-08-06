@@ -1,0 +1,23 @@
+- set_fact:
+    command: show version
+
+- cli_parse_transform:
+    engine: native_xml
+    commands:
+    - command: "{{ command }}"
+      set_fact: True
+      transform: "{{ lookup('template', 'nxos_xml_transform.j2')|from_yaml }}"
+- debug:
+    var: ansible_facts['show_version']
+
+- set_fact:
+    command: show interface
+
+- cli_parse_transform:
+    engine: native_xml
+    commands:
+    - command: "{{ command }}"
+      set_fact: True
+      transform: "{{ lookup('template', 'nxos_xml_transform.j2')|from_yaml }}"
+- debug:
+    var: ansible_facts['show_interface']
