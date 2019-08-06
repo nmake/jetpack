@@ -1,6 +1,6 @@
 # Fact diff
 
-`fact_diff` is an Ansible module that compares and shows the differences between two facts. When using the defaul callback, differences are shown during the playbook run.  Differences are also returned from the task in the `diff_lines` key.  The task will return `changed` if the before and after are not equal.
+`fact_diff` is an Ansible module that compares and shows the differences between two facts. When using the default callback, differences are shown during the playbook run.  Differences are also returned from the task in the `diff_lines` key.  The task will return `changed` if the before and after are not equal.
 
 ## Quick start
 
