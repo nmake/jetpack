@@ -1,0 +1,21 @@
+# Note- if lists are passed, we'll convert them to dicts since the default differ
+# can't handle a list obj
+- hosts: nxos101
+  gather_facts: false
+  collections:
+  - nmake.jetpack
+  tasks:
+  - set_fact:
+      lista:
+      - 1
+      - 2
+      - 3
+      - 4
+      listb:
+      - 2
+      - 3
+      - 4
+      - 5
+  - fact_diff:
+      before: "{{ lista }}"
+      after: "{{ listb }}"

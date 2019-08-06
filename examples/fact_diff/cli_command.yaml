@@ -1,0 +1,35 @@
+- hosts: nxos101
+  gather_facts: false
+  collections:
+  - nmake.jetpack
+  tasks:
+  - cli_command:
+      command: show run interface
+    register: before
+  - cli_config:
+      config: |
+        interface eth1/128
+        description {{ 99999999 | random | to_uuid }}
+  - cli_command:
+      command: show run interface
+    register: after
+  - fact_diff:
+      before: "{{ before['stdout'] }}"
+      after: "{{ after['stdout'] }}"
+    register: output
+  - debug:
+      var: output['diff_lines']
+
+
+  - cli_command:
+      command: show run | exclude !Time
+    register: before
+  - cli_command:
+      command: show run | exclude !Time
+    register: after
+  - fact_diff:
+      before: "{{ before['stdout'] }}"
+      after: "{{ after['stdout'] }}"
+    register: running_diff
+  - assert:
+      that: not running_diff.changed

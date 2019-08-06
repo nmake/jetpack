@@ -1,0 +1,36 @@
+# collect the interface data for each host
+- hosts: vyos
+  gather_facts: false
+  tasks:
+  - vyos_facts:
+      gather_subset:
+      - 'min'
+      gather_network_resources:
+      - interfaces
+
+# stuff each hosts' facts into localhost's facts
+- hosts: vyos
+  gather_facts: false
+  serial: 1
+  tasks:
+  - set_fact:
+      host_facts: "{{ hostvars.localhost.host_facts|default({})|
+                      combine({inventory_hostname: ansible_facts}) }}"
+    delegate_to: localhost
+    delegate_facts: True
+
+# running as localhost, compare the interfaces between two hosts
+- hosts: localhost
+  gather_facts: false
+  collections:
+  - nmake.jetpack
+  tasks:
+  - fact_diff:
+      before: "{{ host_facts.vyos101.network_resources.interfaces|
+                  nmake.jetpack.rekey_on_members(['name'])|
+                  nmake.jetpack.set_root_key('vyos101')|
+                  nmake.jetpack.to_dotted }}"
+      after: "{{ host_facts.vyos102.network_resources.interfaces|
+                 nmake.jetpack.rekey_on_members(['name'])|
+                 nmake.jetpack.set_root_key('vyos101')|
+                 nmake.jetpack.to_dotted }}"

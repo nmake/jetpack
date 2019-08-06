@@ -1,0 +1,11 @@
+- hosts: nxos101
+  gather_facts: false
+  collections:
+  - nmake.jetpack
+  tasks:
+  - debug:
+      msg: "{{ hostvars[inventory_hostname].group_names[0] }}"
+  - set_fact:
+      dotted: "{{ hostvars[inventory_hostname]|nmake.jetpack.to_dotted }}"
+  - debug:
+      var: dotted

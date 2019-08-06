@@ -1,0 +1,21 @@
+- hosts: nxos101
+  gather_facts: false
+  collections:
+  - nmake.jetpack
+  tasks:
+  - name: Show the difference as json
+    fact_diff:
+      before: {}
+      after: "{{ hostvars[inventory_hostname] }}"
+  - name: Show the difference as yaml
+    fact_diff:
+      before: {}
+      after: "{{ hostvars[inventory_hostname]|to_nice_yaml }}"
+  - name: Show the difference as dotted
+    fact_diff:
+      before: {}
+      after: "{{ hostvars[inventory_hostname]|nmake.jetpack.to_dotted }}"
+  - name: Show the difference as dotted yaml
+    fact_diff:
+      before: {}
+      after: "{{ hostvars[inventory_hostname]|nmake.jetpack.to_dotted|to_nice_yaml }}"

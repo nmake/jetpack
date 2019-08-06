@@ -1,0 +1,11 @@
+- hosts: nxos
+  gather_facts: false
+  collections:
+  - nmake.jetpack
+  tasks:
+  - cli_command:
+      command: show version | i file|uptime
+    register: bootfile
+  - fact_diff:
+      before: "{{ hostvars['nxos101']['bootfile']['stdout_lines']|to_nice_yaml }}"
+      after: "{{ hostvars[inventory_hostname]['bootfile']['stdout_lines']|to_nice_yaml }}"

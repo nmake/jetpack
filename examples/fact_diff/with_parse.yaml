@@ -1,0 +1,41 @@
+- hosts: nxos101
+  gather_facts: false
+  collections:
+  - nmake.jetpack
+  tasks:
+  - cli_parse_transform:
+      engine: native_json
+      commands:
+      - command: sho interface
+        set_fact: True
+        transform:
+        - name: nxos_flatten_table_row
+        - name: rekey_on_members
+          members:
+          - interface
+        - name: unnest
+          keys:
+          - interface
+        - name: to_dotted
+        - name: set_root_key
+          key: before
+  - cli_parse_transform:
+      engine: native_json
+      commands:
+      - command: sho interface
+        set_fact: True
+        transform:
+        - name: nxos_flatten_table_row
+        - name: rekey_on_members
+          members:
+          - interface
+        - name: unnest
+          keys:
+          - interface
+        - name: to_dotted
+        - name: set_root_key
+          key: after
+  - fact_diff:
+      before: "{{ before }}"
+      after: "{{ after }}"
+    register: output

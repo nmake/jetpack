@@ -1,0 +1,25 @@
+- hosts: nxos101
+  gather_facts: false
+  collections:
+  - nmake.jetpack
+  tasks:
+  - cli_parse_transform:
+      engine: native_json
+      commands:
+      - command: sho interface
+        set_fact: True
+        transform:
+        - name: set_root_key
+          key: before
+  - set_fact:
+      dotted: "{{ before | nmake.jetpack.to_dotted }}"
+  - set_fact:
+      undotted: "{{ dotted | nmake.jetpack.from_dotted }}"
+
+  - fact_diff:
+      before: "{{ before }}"
+      after: "{{ undotted }}"
+  - assert:
+      that: undotted == before
+  - debug:
+      var: before.TABLE_interface.ROW_interface[0].interface

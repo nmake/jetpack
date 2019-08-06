@@ -1,0 +1,24 @@
+all:
+  vars:
+    ansible_user: "{{ lookup('env', 'ansible_ssh_user') }}"
+    ansible_password: "{{ lookup('env', 'ansible_ssh_pass') }}"
+    ansible_become_pass: "{{ lookup('env', 'ansible_become_pass') }}"
+    ansible_become: True
+    ansible_become_method: enable
+    ansible_connection: network_cli
+    ansible_python_interpreter: python
+  children:
+    nxos:
+      hosts:
+        nxos101:
+        nxos102:
+        nxos103:
+        nxos104:
+      vars:
+        ansible_network_os: nxos
+    vyos:
+      hosts:
+        vyos101:
+        vyos102:
+      vars:
+        ansible_network_os: vyos
