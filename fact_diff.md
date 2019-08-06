@@ -4,7 +4,7 @@
 
 ## Quick start
 
-```
+```yaml
 - hosts: nxos101
   gather_facts: false
   collections:
@@ -29,7 +29,7 @@
       var: output['diff_lines']
 ```
 
-```
+```diff
 TASK [fact_diff] ***********************************
 --- before
 +++ after
