@@ -20,7 +20,8 @@
   - cli_command:
       command: show run interface
     register: after
-  - fact_diff:
+  - name: Show the differences between the before and after
+    fact_diff:
       before: "{{ before['stdout'] }}"
       after: "{{ after['stdout'] }}"
     register: output
