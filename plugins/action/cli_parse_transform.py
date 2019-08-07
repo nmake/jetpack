@@ -234,10 +234,13 @@ class ActionModule(ActionBase):
                     else:
                         parsed = stdout
                 elif self._engine == 'native_xml':
-                    splitted = stdout.splitlines()
-                    if splitted[-1] == ']]>]]>':
-                        stdout = '\n'.join(splitted[:-1])
-                    parsed = xmltodict.parse(stdout)
+                    if not stdout:
+                        parsed = {}
+                    else:
+                        splitted = stdout.splitlines()
+                        if splitted[-1] == ']]>]]>':
+                            stdout = '\n'.join(splitted[:-1])
+                        parsed = xmltodict.parse(stdout)
 
             except Exception:  # pylint: disable=W0703
                 msg = ("Unable to parse output for command '{}' for {}"
