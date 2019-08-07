@@ -52,9 +52,9 @@ def dict_merge_bang(base, other):
                 if item is not None:
                     if all(isinstance(x, str) for x in item) and \
                       all(isinstance(x, str) for x in value):
-                        if all(x.startswith('!') for x in value):
+                        if all(x.startswith('!') for x in item):
                             for entry in item:
-                                if entry.startswith('!') and entry[1:] in value:
+                                if entry[1:] in value:
                                     value.remove(entry[1:])
                             combined[key] = value
                         else:
