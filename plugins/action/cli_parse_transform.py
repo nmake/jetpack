@@ -289,8 +289,10 @@ class ActionModule(ActionBase):
         self._run_commands()
         self._parse_stdout()
 
+        current_facts = task_vars.get('vars', {}).get('ansible_facts', {})
+        new_facts = dict_merge(current_facts, self._facts)
         self._result.update({
-            'ansible_facts': self._facts,
+            'ansible_facts': new_facts,
             'details': self._result_details
         })
 
