@@ -194,12 +194,13 @@ class ActionModule(ActionBase):
                         "Transform '{}' missing `name` in command '{}'"
                         .format(transform['name'], command['command']))
                     continue
-                for collection in self._task.collections:
-                    full_name = "{}.{}".format(collection, transform['name'])
-                    filterfn = self._templar_filters.get(full_name)
-                    if filterfn:
-                        self._filters[transform['name']] = filterfn
-                        break
+                if hasattr(self._task, 'collections'):
+                    for collection in self._task.collections:
+                        full_name = "{}.{}".format(collection, transform['name'])
+                        filterfn = self._templar_filters.get(full_name)
+                        if filterfn:
+                            self._filters[transform['name']] = filterfn
+                            break
                 if transform['name'] not in self._filters:
                     full_name = "{}.{}".format('nmake.jetpack',
                                                transform['name'])

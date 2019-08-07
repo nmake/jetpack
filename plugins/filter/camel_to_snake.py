@@ -14,6 +14,9 @@ def camel_to_snake(parsed):
             for fnd in re.findall("([a-z][A-Z])", new_key):
                 fixed = '_'.join(list(fnd)).lower()
                 new_key = new_key.replace(fnd, fixed)
+            for fnd in re.findall("(\d[A-Z])", new_key):
+                fixed = '_'.join(list(fnd)).lower()
+                new_key = new_key.replace(fnd, fixed)
             working[new_key] = camel_to_snake(val)
         return working
     return parsed
