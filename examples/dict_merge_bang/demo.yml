@@ -1,0 +1,40 @@
+- hosts: localhost
+  gather_facts: False
+  collections:
+  - nmake.jetpack
+  tasks:
+  - set_fact:
+      role_defaults:
+        collect:
+          nxos:
+          - 'a'
+          - 'b'
+          - 'c'
+          - 'd'
+          eos:
+          - 'a'
+          - 'b'
+      user_provided:
+        collect:
+          nxos:
+          - '!a'
+          - 'e'
+          - '!z'
+      expected:
+        collect:
+          nxos:
+          - 'b'
+          - 'c'
+          - 'd'
+          - 'e'
+          eos:
+          - 'a'
+          - 'b'
+  - set_fact:
+      result: "{{ role_defaults|nmake.jetpack.dict_merge_bang(user_provided) }}"
+  - fact_diff:
+      before: "{{ result }}"
+      after: "{{ expected }}"
+    register: diffed
+  - assert:
+      that: not diffed.changed

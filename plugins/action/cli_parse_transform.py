@@ -191,6 +191,14 @@ class ActionModule(ActionBase):
                     if filterfn:
                         self._filters[transform['name']] = filterfn
                         break
+                if transform['name'] not in self._filters:
+                    full_name = "{}.{}".format('nmake.jetpack',
+                                               transform['name'])
+                    filterfn = self._templar_filters.get(full_name)
+                    if filterfn:
+                        self._filters[transform['name']] = filterfn
+
+
 
     def _set_send_commands(self):
         if self._engine == 'native_json':
