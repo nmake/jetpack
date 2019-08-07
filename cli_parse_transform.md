@@ -35,6 +35,7 @@ Additionally `cli_parse_transform` can generate statisitics from the parsed data
 # Module parameters
 
 - `engine`: (required) Specific the parsing engine to be used, either `native_json`, `native_xml` or `pyats`. For `pyats` the pyats python library needs to be installed on the ansible control node. For `native_xml` the `xmltodict` python library needs to be installed
+- `ignore_parser_errors` (optional, bool, default=False) Allow the task to continue when parsing errors are found
 - `commands`: (required) A list of commands to be run on the network device and parsed. Each entry in the list of `commands` has the following parameters available:
   - `command`: (required) The command to be issued on the network device
   - `set_fact`: (optional) Set the parser output as an Ansible fact for the host in play.
