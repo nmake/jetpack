@@ -52,12 +52,14 @@ def dict_merge_bang(base, other):
                 if item is not None:
                     if all(isinstance(x, str) for x in item) and \
                       all(isinstance(x, str) for x in value):
-                        for entry in item:
-                            if entry.startswith('!') and entry[1:] in value:
-                                value.remove(entry[1:])
-                            elif entry not in value and not entry.startswith('!'):
-                                value.append(entry)
-                        combined[key] = value
+                        if all(x.startswith('!') for x in value):
+                            for entry in item:
+                                if entry.startswith('!') and entry[1:] in value:
+                                    value.remove(entry[1:])
+                            combined[key] = value
+                        else:
+                            combined[key] = [x for x in item
+                                             if not x.startswith('!')]
                     else:
                         try:
                             combined[key] = list(set(chain(value, item)))
