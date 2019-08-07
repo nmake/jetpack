@@ -198,8 +198,6 @@ class ActionModule(ActionBase):
                     if filterfn:
                         self._filters[transform['name']] = filterfn
 
-
-
     def _set_send_commands(self):
         if self._engine == 'native_json':
             if self._network_os == "junos":
@@ -222,7 +220,10 @@ class ActionModule(ActionBase):
                     parsed = self._pyats_device.parse(command['command'],
                                                       output=stdout)
                 elif self._engine == 'native_json':
-                    parsed = stdout
+                    if isinstance(stdout, str):
+                        parsed = {}
+                    else:
+                        parsed = stdout
                 elif self._engine == 'native_xml':
                     splitted = stdout.splitlines()
                     if splitted[-1] == ']]>]]>':
