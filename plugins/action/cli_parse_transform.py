@@ -9,6 +9,10 @@ from ansible.module_utils import basic
 from ansible.module_utils._text import to_bytes
 from ansible.errors import AnsibleModuleError
 from ansible.template import Templar
+from ansible.utils.display import Display
+
+display = Display()
+
 
 try:
     from genie.conf.base import Device
@@ -57,6 +61,10 @@ ARGSPEC = {
             {
                 'type': 'str',
                 'choices': ['pyats', 'native_json', 'native_xml']
+            },
+        'ignore_parser_errors':
+            {
+                'type': 'bool',
             }
     }
 }
@@ -77,6 +85,7 @@ class ActionModule(ActionBase):
         self._errors = []
         self._facts = {}
         self._filters = {}
+        self._ignore_parser_errors = False
         self._network_os = None
         self._commands = None
         self._module_name = None
@@ -231,9 +240,13 @@ class ActionModule(ActionBase):
                     parsed = xmltodict.parse(stdout)
 
             except Exception:  # pylint: disable=W0703
-                self._errors.append("Unable to parse output for command '{}'"
-                                    " for {}".format(command['command'],
-                                                     self._network_os))
+                msg = ("Unable to parse output for command '{}' for {}"
+                       .format(command['command'], self._network_os))
+                if self._ignore_parser_errors:
+                    display.warning(msg)
+                    parsed = {}
+                else:
+                    self._errors.append(msg)
             self._check_for_errors()
 
             parsed = self._run_transforms(command, parsed)
@@ -266,6 +279,7 @@ class ActionModule(ActionBase):
         self._commands = self._task.args.get('commands')
         self._module_name = '{}_command'.format(self._network_os)
         self._engine = self._task.args.get('engine')
+        self._ignore_parser_errors = self._task.args.get('ignore_parser_errors')
 
     def run(self, tmp=None, task_vars=None):
 
