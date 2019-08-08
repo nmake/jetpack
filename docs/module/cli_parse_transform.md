@@ -41,7 +41,7 @@ Additionally `cli_parse_transform` can generate statisitics from the parsed data
   - `set_fact`: (optional) Set the parser output as an Ansible fact for the host in play.
   - `transform`: (optional) A list of tranformations for the parsed data, processed in order. The current transformations can be done:
     - [`camel_to_snake`](/docs/filter/camel_to_snake.md) Convert camelCase keys to snake_case keys.
-    - [`expand_vlans`](#expand_vlans) Expand a range of vlans to a list.
+    - [`expand_vlans`](/docs/filter/expand_vlans.md) Expand a range of vlans to a list.
     - [`flatten_list_of_dicts`](#flatten_list_of_dicts) Convert a list of dictionaries to a list of values.
     - [`keep_keys`](#keep_keys) Select which keys should be kept in the parsed data.
     - [`nxos_flatten_table_row`](#nxos_flatten_table_row) Remove the nxos TABLE and ROW keys.
@@ -57,43 +57,6 @@ Additionally `cli_parse_transform` can generate statisitics from the parsed data
 ## Transforms
 
 
-- <a name="expand_vlans">`expand_vlans`</a>: Expand vlans in range syntax into a list. This is useful when there is a need to `assert` that a vlan in allowed in a trunk later in the playbook.
-
-    ```yaml
-
-    # before
-    - cli_parse_transform:
-        engine: native_json
-        commands:
-        - command: show interface Ethernet1 switchport
-          set_fact: True
-
-    switchports:
-      Ethernet1:
-        enabled: true
-        switchportInfo:
-          trunkAllowedVlans: 1-3
-
-    # after
-    - cli_parse_transform:
-        engine: native_json
-        commands:
-        - command: show interface Ethernet1 switchport
-          set_fact: True
-          transform:
-          - name: expand_vlans
-            keys:
-            - trunkAllowedVlans
-
-    switchports:
-      Ethernet1:
-        enabled: true
-        switchportInfo:
-          trunkAllowedVlans:
-          - '1'
-          - '2'
-          - '3'
-    ```
 
 - <a name="flatten_list_of_dicts">`flatten_list_of_dicts`</a>: Replaces a list of dictionaries with a list of values. Provide the `key` to match and the `value` to pull from each dictionary.  The `key` is used as a regular expression. This is useful when the engine return lists of dictionaries and only a list of a praticular value within each dictionary is desired.
 
