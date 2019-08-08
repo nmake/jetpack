@@ -1,0 +1,84 @@
+---
+- name: "nxos.vlan: show vpc"
+  nmake.jetpack.cli_parse_transform:
+    engine: "native_xml"
+    commands:
+      - command: "show vpc"
+        set_fact: True
+        transform:
+        - name: "nxos_flatten_table_row"
+        - name: unnest
+          keys:
+          - __readonly__
+          - show
+          - vpc
+          - nf:data
+          - nf:rpc-reply
+        - name: replace_keys
+          keys:
+          - before: '^@xmlns.*'
+            after: ''
+        - name: set_root_key
+          key: vpc
+        - name: set_root_key
+          key: "{{ fact_key }}"
+
+- name: "nxos.vlan: show vpc consistency-parameters global"
+  nmake.jetpack.cli_parse_transform:
+    engine: "native_xml"
+    commands:
+      - command: "show vpc consistency-parameters global"
+        set_fact: True
+        transform:
+        - name: "nxos_flatten_table_row"
+        - name: unnest
+          keys:
+          - __readonly__
+          - show
+          - vpc
+          - consistency-parameters
+          - global
+          - nf:data
+          - nf:rpc-reply
+        - name: replace_keys
+          keys:
+          - before: '^@xmlns.*'
+            after: ''
+        - name: set_root_key
+          key: global
+        - name: set_root_key
+          key: consistency_parameters
+        - name: set_root_key
+          key: vpc
+        - name: set_root_key
+          key: "{{ fact_key }}"
+
+- name: "nxos.vlan: show vpc consistency-parameters vlans"
+  nmake.jetpack.cli_parse_transform:
+    engine: "native_xml"
+    commands:
+      - command: "show vpc consistency-parameters vlans"
+        set_fact: True
+        transform:
+        - name: "nxos_flatten_table_row"
+        - name: unnest
+          keys:
+          - __readonly__
+          - show
+          - vpc
+          - consistency-parameters
+          - vlans
+          - nf:data
+          - nf:rpc-reply
+        - name: replace_keys
+          keys:
+          - before: '^@xmlns.*'
+            after: ''
+        - name: set_root_key
+          key: vlans
+        - name: set_root_key
+          key: consistency_parameters
+        - name: set_root_key
+          key: vpc
+        - name: set_root_key
+          key: "{{ fact_key }}"
