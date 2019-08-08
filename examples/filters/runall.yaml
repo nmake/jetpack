@@ -4,3 +4,4 @@
   - include: "{{ item }}.yaml"
     loop:
     - camel_to_snake
+    - expand_vlans

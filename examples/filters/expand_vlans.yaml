@@ -1,0 +1,15 @@
+- set_fact:
+    data:
+      TABLE_interface:
+      ROW_interface:
+        interface: Ethernet1/1
+        switchport: Enabled
+        oper_mode: access
+        access_vlan: '1'
+        access_vlan_name: default
+        native_vlan: '1'
+        trunk_vlans: 1-5
+        voice_vlan_name: none
+
+- debug:
+    msg: "{{ data|nmake.jetpack.expand_vlans(['trunk_vlans']) }}"

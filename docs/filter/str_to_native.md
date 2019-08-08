@@ -2,6 +2,8 @@
 
 Convert values to their native types.  `ast.literal_eval(parsed)` is used for the converstion, in addition, "none", "true", and "false" will be converted to `None`, `True` and `False` respectively.  This is useful when integers, booleans, etc are returned as strings and they should be converted to their respective type.
 
+### Used with cli_parse_transform as a transform
+
 ```yaml
 
 - cli_parse_transform:
@@ -31,5 +33,11 @@ ansible_facts:
     - eth_inpkts: 163246414
       eth_inucast: 393265
       interface_rx: mgmt0
+
+```
+
+### Used a jinja filter
+
+```yaml
 
 ```

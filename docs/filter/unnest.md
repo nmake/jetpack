@@ -2,6 +2,8 @@
 
 Move a dictionary up one level in the tree. This is useful when the parsed data is unneccesarily complex.
 
+### Used with cli_parse_transform as a transform
+
 ```yaml
 
 # before
@@ -63,5 +65,11 @@ ansible_facts:
        192.168.101.14:
        - 192.168.101.0/24
        - 192.168.101.14/32
+
+```
+
+### Used a jinja filter
+
+```yaml
 
 ```

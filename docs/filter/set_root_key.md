@@ -2,6 +2,8 @@
 
 Set the root key for the parsed data. This is useful for saving facts differently before and after configuration changes for comparison later.
 
+### Used with cli_parse_transform as a transform
+
 ```yaml
 
 # before network configuration change
@@ -58,5 +60,11 @@ ansible_facts:
 
 - assert:
     that: "{{ int_status_before_changes == int_status_after_changes }}"
+
+```
+
+### Used a jinja filter
+
+```yaml
 
 ```

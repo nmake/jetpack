@@ -4,7 +4,6 @@
   - role: nmake.jetpack.operating_state
     gather_state:
     - all
-    - '!interfaces'
   tasks:
   - debug:
       var: ansible_facts

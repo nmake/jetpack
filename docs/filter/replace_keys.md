@@ -2,6 +2,8 @@
 
 Change the name of keys in the engine output. The before value is used as a regex. This is useful to modify the output of one command to look like another.
 
+### Used with cli_parse_transform as a transform
+
 ```yaml
 
 # before
@@ -40,5 +42,11 @@ ansible_facts:
       icmp-redirect: disabled
       interface: Ethernet1/128
       iod: '132'
+
+```
+
+### Used a jinja filter
+
+```yaml
 
 ```

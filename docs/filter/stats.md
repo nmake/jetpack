@@ -2,6 +2,8 @@
 
 Generate statics for a list of keys.  The parent key name is used for the statistics key name, and each group of statistics is prepended with `count_of`. This is useful to generate summary information from detail engine output. Use the `only_stats` if the original detailed information is not required.
 
+### Used with cli_parse_transform as a transform
+
 ```yaml
 - cli_parse_transform:
     engine: native_json
@@ -55,5 +57,11 @@ ansible_facts:
       '1': 128
       routed: 3
     total: 131
+
+```
+
+### Used a jinja filter
+
+```yaml
 
 ```
