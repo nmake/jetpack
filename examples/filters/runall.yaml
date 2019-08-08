@@ -13,3 +13,4 @@
     - set_root_key
     - stats
     - str_to_native
+    - unnest

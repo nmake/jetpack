@@ -1,0 +1,22 @@
+- set_fact:
+    data:
+      parent_1:
+        parent_2:
+          parent_3:
+            lldp_neigbors:
+            - ttl: 120
+              neighborDevice: nxos104
+              neighborPort: Ethernet1/1
+              port: Ethernet1
+            - ttl: 120
+              neighborDevice: localhost
+              neighborPort: 5254.00cd.67ab
+              port: Ethernet1
+            - ttl: 120
+              neighborDevice: localhost
+              neighborPort: 5254.00f4.f08d
+              port: Ethernet1
+
+- name: Unnest the lldp_neigbors
+  debug:
+    msg: "{{ data|nmake.jetpack.unnest(['parent_1', 'parent_2', 'parent_3']) }}"
