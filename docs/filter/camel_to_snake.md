@@ -1,4 +1,6 @@
-- <a name="camel_to_snake">`camel_to_snake`</a>:  Basic camelCase to snake_case conversion. This is useful for `eos` because `eos` return keys in camelCase format.
+## `camel_to_snake` 
+
+Basic camelCase to snake_case conversion. This is useful for `eos` because `eos` return keys in camelCase format.
 
     ```yaml
     # before

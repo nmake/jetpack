@@ -1,5 +1,5 @@
 
-# `expand_vlans`
+## `expand_vlans`
 
 Expand vlans in range syntax into a list. This is useful when there is a need to `assert` that a vlan in allowed in a trunk later in the playbook.
 
