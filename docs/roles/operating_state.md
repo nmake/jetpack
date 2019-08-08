@@ -2,7 +2,7 @@
 
 `operating_state` is an Ansible role that collects information about various resources on a network devices and returns parsed and structured data.
 
-The following resources are current supported:
+### The following resources are current supported:
 - arp
 - cdp
 - lldp
@@ -10,12 +10,12 @@ The following resources are current supported:
 - system
 - spanning_tree
 
-The following network operating systems are currently supported:
+#### The following network operating systems are currently supported:
 - ios/iosxe
 - nxos
 - eos
 
-The following parser engines are supported:
+#### The following parser engines are supported:
 - native_json: Use the network device's native json support
 - native_xml: Use the network device's native xml support
 - pyats: Use the Cisco pyats/genie library
@@ -92,7 +92,7 @@ The following parser engines are supported:
       fact_key: after
       gather_state:
       - all
-      
+
   - name: Compare the before and after in dotted format
     nmake.jetpack.fact_diff:
       before: "{{ before|default({})|nmake.jetpack.to_dotted }}"
