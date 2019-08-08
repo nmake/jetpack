@@ -48,5 +48,33 @@ ansible_facts:
 ### Used a jinja filter
 
 ```yaml
+- set_fact:
+    data:
+      TABLE_intf:
+        ROW_intf:
+          vrf-name-out: default
+          intf-name: Eth1/128
+          proto-state: down
+          link-state: down
+          admin-state: down
+          iod: '132'
+          prefix: 192.168.1.1
+          ip-disabled: 'FALSE'
+
+- debug:
+    msg: "{{ data|nmake.jetpack.replace_keys([{'before': 'intf-name', 'after': 'interface'}]) }}"
+
+# result
+msg:
+  TABLE_intf:
+    ROW_intf:
+      admin-state: down
+      interface: Eth1/128
+      iod: '132'
+      ip-disabled: 'FALSE'
+      link-state: down
+      prefix: 192.168.1.1
+      proto-state: down
+      vrf-name-out: default
 
 ```
