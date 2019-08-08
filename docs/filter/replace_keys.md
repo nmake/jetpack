@@ -1,6 +1,6 @@
 ## `replace_keys`
 
-Change the name of keys in the engine output. The before value is used as a regex. This is useful to modify the output of one command to look like another.
+Change the name of keys in the data. The before value is used as a regex. This is useful to modify the output of one command to look like another.
 
 ### Used with cli_parse_transform as a transform
 

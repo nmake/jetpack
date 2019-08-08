@@ -1,6 +1,6 @@
 ## `set_root_key`
 
-Set the root key for the parsed data. This is useful for saving facts differently before and after configuration changes for comparison later.
+Set the root key for the data. This is useful for saving facts differently before and after configuration changes for comparison later.
 
 ### Used with cli_parse_transform as a transform
 

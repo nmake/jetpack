@@ -1,6 +1,6 @@
 ## `nxos_flatten_table_row`
 
-Flatten the `TABLE...` and `ROW...` keys when using `native_json` with `nxos`.  The row name is used to generate the new root key. This is useful when using the `native_json` engine with nxos and the `TABLE` and `ROW` keys are not desired in the facts.
+Flatten the `TABLE...` and `ROW...` keys when using json data from an nxos device.  The row name is used to generate the new root key. 
 
 ### Used with cli_parse_transform as a transform
 
