@@ -40,7 +40,7 @@
 - `gather_state`: (required) Gather the operating state for a list of resources.  `all` will gather all available resources. Combined with `all`, `!resource` will exclude the resource.
 - `xxx_engine` (optional) Set the parsing engine for a particular network operating system.
 - `fact_key` (optional) Store the gathered state information in a new root fact key.
--
+
 ## Use cases:
 
 #### Only gather a specfic resource
