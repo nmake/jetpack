@@ -63,5 +63,40 @@ ansible_facts:
 ### Used a jinja filter
 
 ```yaml
+- set_fact:
+    data:
+      TABLE_interface:
+      ROW_interface:
+      - interface: Ethernet1/1
+        state: connected
+        vlan: '1'
+        duplex: full
+        speed: auto
+        type: 10g
+      - interface: Ethernet1/2
+        state: connected
+        vlan: '1'
+        duplex: full
+        speed: auto
+        type: 10g
+      - interface: Ethernet1/3
+        state: notconnect
+        vlan: '1'
+        duplex: auto
+        speed: auto
+        type: 10g
 
+- name: Generate interface stats, and only return stats
+  debug:
+    msg: "{{ data|nmake.jetpack.stats(['state', 'type'], True) }}"
+
+# result
+msg:
+  ROW_interface_stats:
+    count_by_state:
+      connected: 2
+      notconnect: 1
+    count_by_type:
+      10g: 3
+    total: 3
 ```

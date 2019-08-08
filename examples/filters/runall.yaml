@@ -11,3 +11,4 @@
     - nxos_flatten_table_row
     - replace_keys
     - set_root_key
+    - stats

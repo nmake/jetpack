@@ -14,6 +14,13 @@
         duplex: full
         speed: auto
         type: 10g
+      - interface: Ethernet1/3
+        state: notconnect
+        vlan: '1'
+        duplex: auto
+        speed: auto
+        type: 10g
 
-- debug:
-    msg: "{{ data|nmake.jetpack.rekey_on_members(['interface']) }}"
+- name: Generate interface stats, and only return stats
+  debug:
+    msg: "{{ data|nmake.jetpack.stats(['state', 'type'], True) }}"

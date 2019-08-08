@@ -15,6 +15,6 @@
         speed: auto
         type: 10g
 
-- name: Remove the TABLe and ROW, set the ROW to plural
+- name: Remove the TABLE and ROW, set the ROW to plural
   debug:
     msg: "{{ data|nmake.jetpack.nxos_flatten_table_row(True) }}"
