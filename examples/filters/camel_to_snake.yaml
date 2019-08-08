@@ -1,0 +1,18 @@
+- set_fact:
+    data:
+      uptime: 328049.91
+      modelName: "vEOS"
+      internalVersion: "4.21.1.1F-10146868.42111F"
+      systemMacAddress: "52:54:00:21:fd:8f"
+      serialNumber: ""
+      memTotal: 2016548
+      bootupTimestamp: 1564950373.0
+      memFree: 1372072
+      version: "4.21.1.1F"
+      architecture: "i386"
+      isIntlVersion: false
+      internalBuildId: "ed3973a9-79db-4acc-b9ac-19b9622d23e2"
+      hardwareRevision: ""
+
+- debug:
+    msg: "{{ data|nmake.jetpack.camel_to_snake }}"

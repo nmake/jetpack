@@ -1,0 +1,6 @@
+- hosts: localhost
+  gather_facts: False
+  tasks:
+  - include: "{{ item }}.yaml"
+    loop:
+    - camel_to_snake
