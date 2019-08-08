@@ -63,5 +63,43 @@ ansible_facts:
 ### Used a jinja filter
 
 ```yaml
+- set_fact:
+    data:
+      TABLE_interface:
+      ROW_interface:
+      - interface: Ethernet1/1
+        state: connected
+        vlan: '1'
+        duplex: full
+        speed: auto
+        type: 10g
+      - interface: Ethernet1/2
+        state: connected
+        vlan: '1'
+        duplex: full
+        speed: auto
+        type: 10g
+
+- debug:
+    msg: "{{ data|nmake.jetpack.rekey_on_members(['interface']) }}"
+
+# result
+msg:
+  ROW_interface:
+    Ethernet1/1:
+      duplex: full
+      interface: Ethernet1/1
+      speed: auto
+      state: connected
+      type: 10g
+      vlan: '1'
+    Ethernet1/2:
+      duplex: full
+      interface: Ethernet1/2
+      speed: auto
+      state: connected
+      type: 10g
+      vlan: '1'
+  TABLE_interface: null
 
 ```
