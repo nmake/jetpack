@@ -52,5 +52,41 @@ ansible_facts:
 ### Used a jinja filter
 
 ```yaml
+- set_fact:
+    data:
+      TABLE_interface:
+      ROW_interface:
+      - interface: Ethernet1/1
+        state: connected
+        vlan: '1'
+        duplex: full
+        speed: auto
+        type: 10g
+      - interface: Ethernet1/2
+        state: connected
+        vlan: '1'
+        duplex: full
+        speed: auto
+        type: 10g
+
+- name: Remove the TABLE and ROW, set the ROW to plural
+  debug:
+    msg: "{{ data|nmake.jetpack.nxos_flatten_table_row(True) }}"
+
+# result
+msg:
+  interfaces:
+  - duplex: full
+    interface: Ethernet1/1
+    speed: auto
+    state: connected
+    type: 10g
+    vlan: '1'
+  - duplex: full
+    interface: Ethernet1/2
+    speed: auto
+    state: connected
+    type: 10g
+    vlan: '1'
 
 ```

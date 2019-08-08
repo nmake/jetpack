@@ -8,3 +8,4 @@
     - flatten_list_of_dicts
     - keep_keys
     - rekey_on_members
+    - nxos_flatten_table_row
