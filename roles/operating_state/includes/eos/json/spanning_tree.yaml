@@ -1,0 +1,33 @@
+- name: "eos.interface: show spanning-tree"
+  nmake.jetpack.cli_parse_transform:
+    engine: "native_json"
+    commands:
+      - command: "show spanning-tree"
+        set_fact: True
+        transform:
+        - name: camel_to_snake
+        - name: replace_keys
+          keys:
+          - before: spanning_tree_instances
+            after: instances
+        - name: set_root_key
+          key: spanning_tree
+        - name: set_root_key
+          key: "{{ fact_key }}"
+
+- name: "eos.interface: show spanning-tree blockedports"
+  nmake.jetpack.cli_parse_transform:
+    engine: "native_json"
+    commands:
+      - command: "show spanning-tree blockedports"
+        set_fact: True
+        transform:
+        - name: camel_to_snake
+        - name: replace_keys
+          keys:
+          - before: spanning_tree_instances
+            after: instances
+        - name: set_root_key
+          key: spanning_tree
+        - name: set_root_key
+          key: "{{ fact_key }}"

@@ -1,0 +1,31 @@
+- name: "ios.lldp: show lldp neighbors detail"
+  nmake.jetpack.cli_parse_transform:
+    engine: "pyats"
+    network_os: iosxe
+    ignore_parser_errors: True
+    commands:
+      - command: "show lldp neighbors detail"
+        set_fact: True
+        transform:
+        - name: set_root_key
+          key: neighbors
+        - name: set_root_key
+          key: lldp
+        - name: set_root_key
+          key: "{{ fact_key }}"
+
+- name: "ios.lldp: show lldp interface"
+  nmake.jetpack.cli_parse_transform:
+    engine: "pyats"
+    network_os: iosxe
+    ignore_parser_errors: True
+    commands:
+      - command: "show lldp interface"
+        set_fact: True
+        transform:
+        - name: set_root_key
+          key: interface
+        - name: set_root_key
+          key: lldp
+        - name: set_root_key
+          key: "{{ fact_key }}"

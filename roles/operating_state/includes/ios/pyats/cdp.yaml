@@ -1,0 +1,15 @@
+- name: "ios.cdp: show cdp neighbors detail"
+  nmake.jetpack.cli_parse_transform:
+    engine: "pyats"
+    network_os: iosxe
+    ignore_parser_errors: True
+    commands:
+      - command: "show cdp neighbors detail"
+        set_fact: True
+        transform:
+        - name: set_root_key
+          key: neighbors
+        - name: set_root_key
+          key: cdp
+        - name: set_root_key
+          key: "{{ fact_key }}"

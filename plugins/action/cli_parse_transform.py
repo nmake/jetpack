@@ -10,7 +10,7 @@ from ansible.module_utils._text import to_bytes
 from ansible.errors import AnsibleModuleError
 from ansible.template import Templar
 from ansible.utils.display import Display
-
+import q
 display = Display()
 
 
@@ -65,6 +65,10 @@ ARGSPEC = {
         'ignore_parser_errors':
             {
                 'type': 'bool',
+            },
+        'network_os':
+            {
+                'type': 'str'
             }
     }
 }
@@ -144,12 +148,14 @@ class ActionModule(ActionBase):
 
     def _check_commands_against_pyats(self):
         network_os = self._task.args.get('network_os') or self._network_os
+        import q; q(network_os)
         self._pyats_device = Device("uut", os=network_os)
         self._pyats_device.custom.setdefault("abstraction",
                                              {})["order"] = ["os"]
         self._pyats_device.cli = AttrDict({"execute": None})
         for command in self._commands:
             try:
+                q(network_os)
                 get_parser(command['command'], self._pyats_device)
             except Exception:  # pylint: disable=W0703
                 self._errors.append("Unable to find parser for command "
@@ -243,7 +249,8 @@ class ActionModule(ActionBase):
                             stdout = '\n'.join(splitted[:-1])
                         parsed = xmltodict.parse(stdout)
 
-            except Exception:  # pylint: disable=W0703
+            except Exception as err:  # pylint: disable=W0703
+                q(err)
                 msg = ("Unable to parse output for command '{}' for {}"
                        .format(command['command'], self._network_os))
                 if self._ignore_parser_errors:

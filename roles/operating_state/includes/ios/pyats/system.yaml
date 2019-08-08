@@ -1,0 +1,15 @@
+- name: "ios.system: show version"
+  nmake.jetpack.cli_parse_transform:
+    engine: "pyats"
+    network_os: iosxe
+    ignore_parser_errors: True
+    commands:
+      - command: "show version"
+        set_fact: True
+        transform:
+        - name: set_root_key
+          key: version
+        - name: set_root_key
+          key: system
+        - name: set_root_key
+          key: "{{ fact_key }}"

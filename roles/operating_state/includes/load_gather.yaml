@@ -1,0 +1,5 @@
+- name: Load the specific state gatherer
+  include: "{{ item }}"
+  with_first_found:
+  - "includes/{{ ansible_network_os }}/{{ engine }}/{{ gather_one }}.yaml"
+  - "includes/unsupported_gather.yaml"

@@ -1,0 +1,31 @@
+- name: "nxos.system: show version"
+  nmake.jetpack.cli_parse_transform:
+    engine: "native_json"
+    commands:
+      - command: "show version"
+        set_fact: True
+        transform:
+        - name: "nxos_flatten_table_row"
+          plural: true
+        - name: set_root_key
+          key: version
+        - name: set_root_key
+          key: system
+        - name: set_root_key
+          key: "{{ fact_key }}"
+
+- name: "nxos.system: show hardware"
+  nmake.jetpack.cli_parse_transform:
+    engine: "native_json"
+    commands:
+      - command: "show hardware"
+        set_fact: True
+        transform:
+        - name: "nxos_flatten_table_row"
+          plural: true
+        - name: set_root_key
+          key: hardware
+        - name: set_root_key
+          key: system
+        - name: set_root_key
+          key: "{{ fact_key }}"

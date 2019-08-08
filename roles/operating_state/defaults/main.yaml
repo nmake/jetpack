@@ -1,0 +1,9 @@
+fact_key: operating_state
+
+available_gather:
+- arp
+- cdp
+- lldp
+- interfaces
+- system
+- spanning_tree

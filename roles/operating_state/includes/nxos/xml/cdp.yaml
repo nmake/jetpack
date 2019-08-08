@@ -1,0 +1,54 @@
+- name: "nxos.cdp_neighbors: show cdp neighbors"
+  nmake.jetpack.cli_parse_transform:
+    engine: "native_json"
+    commands:
+      - command: "show cdp neighbors"
+        set_fact: True
+        transform:
+        - name: "nxos_flatten_table_row"
+        - name: unnest
+          keys:
+          - __readonly__
+          - show
+          - cdp
+          - neighbors
+          - nf:data
+          - 'nf:rpc-reply'
+        - name: replace_keys
+          keys:
+          - before: '^@xmlns.*'
+            after: ''
+        - name: set_root_key
+          key: neighbors
+        - name: set_root_key
+          key: cdp
+        - name: set_root_key
+          key: "{{ fact_key }}"
+
+
+- name: "nxos.cdp_all: show cdp all"
+  nmake.jetpack.cli_parse_transform:
+    engine: "native_json"
+    commands:
+      - command: "show cdp all"
+        set_fact: True
+        transform:
+        - name: "nxos_flatten_table_row"
+        - name: unnest
+          keys:
+          - __readonly__
+          - show
+          - cdp
+          - all
+          - nf:data
+          - 'nf:rpc-reply'
+        - name: replace_keys
+          keys:
+          - before: '^@xmlns.*'
+            after: ''
+          - before: '^cdp_all$'
+            after: 'all'
+        - name: set_root_key
+          key: cdp
+        - name: set_root_key
+          key: "{{ fact_key }}"

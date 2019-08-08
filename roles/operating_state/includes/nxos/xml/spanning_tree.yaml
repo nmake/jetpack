@@ -1,0 +1,26 @@
+- name: "nxos.spanning_tree: show spanning-tree blockedports"
+  nmake.jetpack.cli_parse_transform:
+    engine: "native_xml"
+    commands:
+      - command: "show spanning-tree blockedports"
+        set_fact: True
+        transform:
+        - name: "nxos_flatten_table_row"
+        - name: unnest
+          keys:
+          - __readonly__
+          - show
+          - spanning-tree
+          - blockedports
+          - nf:data
+          - nf:rpc-reply
+        - name: replace_keys
+          keys:
+          - before: '^@xmlns.*'
+            after: ''
+        - name: set_root_key
+          key: blockedports
+        - name: set_root_key
+          key: spanning_tree
+        - name: set_root_key
+          key: "{{ fact_key }}"

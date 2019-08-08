@@ -1,0 +1,12 @@
+- name: "ios.interfaces: show interfaces"
+  nmake.jetpack.cli_parse_transform:
+    engine: "pyats"
+    network_os: iosxe
+    commands:
+      - command: "show interfaces"
+        set_fact: True
+        transform:
+        - name: set_root_key
+          key: interfaces
+        - name: set_root_key
+          key: "{{ fact_key }}"

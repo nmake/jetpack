@@ -1,0 +1,3 @@
+- name: Set the engine for ios
+  set_fact:
+    engine: "{{ ios_engine|default('pyats') }}"

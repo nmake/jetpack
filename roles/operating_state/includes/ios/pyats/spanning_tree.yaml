@@ -1,0 +1,15 @@
+- name: "ios.spanning_tree: show spanning-tree detail"
+  nmake.jetpack.cli_parse_transform:
+    engine: "pyats"
+    network_os: iosxe
+    ignore_parser_errors: True
+    commands:
+      - command: "show spanning-tree detail"
+        set_fact: True
+        transform:
+        - name: set_root_key
+          key: detail
+        - name: set_root_key
+          key: spanning_tree
+        - name: set_root_key
+          key: "{{ fact_key }}"

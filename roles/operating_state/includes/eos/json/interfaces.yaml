@@ -1,0 +1,10 @@
+- name: "eos.interface: show interfaces"
+  nmake.jetpack.cli_parse_transform:
+    engine: "native_json"
+    commands:
+      - command: "show interfaces"
+        set_fact: True
+        transform:
+        - name: camel_to_snake
+        - name: set_root_key
+          key: "{{ fact_key }}"

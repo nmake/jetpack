@@ -1,0 +1,51 @@
+- name: "nxos.system: show version"
+  nmake.jetpack.cli_parse_transform:
+    engine: "native_xml"
+    commands:
+      - command: "show version"
+        set_fact: True
+        transform:
+        - name: "nxos_flatten_table_row"
+        - name: unnest
+          keys:
+          - __readonly__
+          - show
+          - version
+          - nf:data
+          - nf:rpc-reply
+        - name: replace_keys
+          keys:
+          - before: '^@xmlns.*'
+            after: ''
+        - name: set_root_key
+          key: version
+        - name: set_root_key
+          key: system
+        - name: set_root_key
+          key: "{{ fact_key }}"
+
+- name: "nxos.system: show hardware"
+  nmake.jetpack.cli_parse_transform:
+    engine: "native_xml"
+    commands:
+      - command: "show hardware"
+        set_fact: True
+        transform:
+        - name: "nxos_flatten_table_row"
+        - name: unnest
+          keys:
+          - __readonly__
+          - show
+          - hardware
+          - nf:data
+          - nf:rpc-reply
+        - name: replace_keys
+          keys:
+          - before: '^@xmlns.*'
+            after: ''
+        - name: set_root_key
+          key: hardware
+        - name: set_root_key
+          key: system
+        - name: set_root_key
+          key: "{{ fact_key }}"

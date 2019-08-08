@@ -1,0 +1,12 @@
+- name: "ios.arp: show arp"
+  nmake.jetpack.cli_parse_transform:
+    engine: "pyats"
+    network_os: iosxe
+    commands:
+      - command: "show arp"
+        set_fact: True
+        transform:
+        - name: set_root_key
+          key: arp
+        - name: set_root_key
+          key: "{{ fact_key }}"

@@ -1,0 +1,22 @@
+- name: "nxos.interfaces: show interface"
+  nmake.jetpack.cli_parse_transform:
+    engine: "native_xml"
+    commands:
+      - command: "show interface"
+        set_fact: True
+        transform:
+        - name: "nxos_flatten_table_row"
+          plural: true
+        - name: unnest
+          keys:
+          - __readonly__
+          - show
+          - interface
+          - nf:data
+          - nf:rpc-reply
+        - name: replace_keys
+          keys:
+          - before: '^@xmlns.*'
+            after: ''
+        - name: set_root_key
+          key: "{{ fact_key }}"

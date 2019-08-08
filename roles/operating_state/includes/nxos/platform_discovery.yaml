@@ -1,0 +1,11 @@
+- name: Get the native transform capabilities
+  nxos_facts:
+    gather_subset:
+    - min
+  when: nxos_engine is not defined
+
+- name: Set the engine for nxos
+  set_fact:
+    engine: "{% if nxos_engine is defined %}{{ nxos_engine }}
+             {%- elif ansible_net_version.split('.')[0]|int > 7 %}json
+             {%- else %}xml{% endif %}"

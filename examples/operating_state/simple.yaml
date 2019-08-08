@@ -1,0 +1,10 @@
+- hosts: all
+  gather_facts: false
+  roles:
+  - role: nmake.jetpack.operating_state
+    gather_state:
+    - all
+    - '!interfaces'
+  tasks:
+  - debug:
+      var: ansible_facts
