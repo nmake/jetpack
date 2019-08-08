@@ -13,15 +13,25 @@ Ansible 2.9 required.
 ## Filter plugins
 
 [`camel_to_snake`](docs/filter/camel_to_snake.md) Convert camelCase keys to snake_case keys.
+
 [`expand_vlans`](/docs/filter/expand_vlans.md) Expand a range of vlans to a list.
+
 [`flatten_list_of_dicts`](/docs/filter/flatten_list_of_dicts.md) Convert a list of dictionaries to a list of values.
+
 [`keep_keys`](/docs/filter/keep_keys.md) Select which keys should be kept in the parsed data.
+
 [`nxos_flatten_table_row`](/docs/filter/nxos_flatten_table_row.md) Remove the nxos TABLE and ROW keys.
+
 [`rekey_on_members`](/docs/filter/rekey_on_members.md) Turn a list of dictionaries into a dictionary based on a key.
+
 [`replace_keys`](/docs/filter/replace_keys.md) Replace keys in the structured data.
+
 [`set_root_key`](/docs/filter/set_root_key.md) Set a root key for the parsed data.
+
 [`stats`](/docs/filter/stats.md) Generate statistics from the parsed data.
+
 [`str_to_native`](/docs/filter/str_to_native.md) Convert string to their native type.
+
 [`unnest`](/docs/filter/unnest.md) Promote a child key to it's parent in the tree.
 
 
