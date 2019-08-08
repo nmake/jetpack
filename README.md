@@ -18,17 +18,17 @@ Ansible 2.9 required.
 
 [`flatten_list_of_dicts`](/docs/filter/flatten_list_of_dicts.md) Convert a list of dictionaries to a list of values.
 
-[`keep_keys`](/docs/filter/keep_keys.md) Select which keys should be kept in the parsed data.
+[`keep_keys`](/docs/filter/keep_keys.md) Select which keys should be kept in the data.
 
 [`nxos_flatten_table_row`](/docs/filter/nxos_flatten_table_row.md) Remove the nxos TABLE and ROW keys.
 
 [`rekey_on_members`](/docs/filter/rekey_on_members.md) Turn a list of dictionaries into a dictionary based on a key.
 
-[`replace_keys`](/docs/filter/replace_keys.md) Replace keys in the structured data.
+[`replace_keys`](/docs/filter/replace_keys.md) Replace keys in the data.
 
-[`set_root_key`](/docs/filter/set_root_key.md) Set a root key for the parsed data.
+[`set_root_key`](/docs/filter/set_root_key.md) Set a root key for the data.
 
-[`stats`](/docs/filter/stats.md) Generate statistics from the parsed data.
+[`stats`](/docs/filter/stats.md) Generate statistics from the data.
 
 [`str_to_native`](/docs/filter/str_to_native.md) Convert string to their native type.
 
