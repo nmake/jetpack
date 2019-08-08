@@ -56,5 +56,59 @@ ansible_facts:
 ### Used a jinja filter
 
 ```yaml
+- set_fact:
+    data:
+      TABLE_cdp_neighbor_brief_info:
+      ROW_cdp_neighbor_brief_info:
+      - ifindex: '83886080'
+        device_id: nxos122(9I2AP2ONMU7)
+        intf_id: mgmt0
+        ttl: '128'
+        capability:
+        - router
+        - switch
+        - Supports-STP-Dispute
+        platform_id: N9K-9000v
+        port_id: mgmt0
+      - ifindex: '83886080'
+        device_id: ios102.cidrblock.net
+        intf_id: mgmt0
+        ttl: '161'
+        capability: router
+        platform_id: cisco CSR1000V
+        port_id: GigabitEthernet1
+      - ifindex: '83886080'
+        device_id: nxos103(9NL5F64YZ82)
+        intf_id: mgmt0
+        ttl: '128'
+        capability:
+        - router
+        - switch
+        - Supports-STP-Dispute
+        platform_id: N9K-9000v
+        port_id: mgmt0
+      - ifindex: '83886080'
+        device_id: nxos104(98C98YNOKAL)
+        intf_id: mgmt0
+        ttl: '128'
+        capability:
+        - router
+        - switch
+        - Supports-STP-Dispute
+        platform_id: N9K-9000v
+        port_id: mgmt0
+    neigh_count: '4'
+
+- debug:
+    msg: "{{ data|nmake.jetpack.flatten_list_of_dicts([{'key': 'ROW_cdp_neighbor_brief_info', 'value': 'device_id'}])}}"
+
+# result
+msg:
+  ROW_cdp_neighbor_brief_info:
+  - nxos122(9I2AP2ONMU7)
+  - ios102.cidrblock.net
+  - nxos103(9NL5F64YZ82)
+  - nxos104(98C98YNOKAL)
+  TABLE_cdp_neighbor_brief_info: null
 
 ```

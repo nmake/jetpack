@@ -5,3 +5,4 @@
     loop:
     - camel_to_snake
     - expand_vlans
+    - flatten_list_of_dicts
