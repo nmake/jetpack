@@ -40,7 +40,7 @@ Additionally `cli_parse_transform` can generate statisitics from the parsed data
   - `command`: (required) The command to be issued on the network device
   - `set_fact`: (optional) Set the parser output as an Ansible fact for the host in play.
   - `transform`: (optional) A list of tranformations for the parsed data, processed in order. The current transformations can be done:
-    - [`camel_to_snake`](#camel_to_snake) Convert camelCase keys to snake_case keys.
+    - [`camel_to_snake`](docs/filter/camel_to_snake.md) Convert camelCase keys to snake_case keys.
     - [`expand_vlans`](#expand_vlans) Expand a range of vlans to a list.
     - [`flatten_list_of_dicts`](#flatten_list_of_dicts) Convert a list of dictionaries to a list of values.
     - [`keep_keys`](#keep_keys) Select which keys should be kept in the parsed data.
@@ -56,39 +56,6 @@ Additionally `cli_parse_transform` can generate statisitics from the parsed data
 
 ## Transforms
 
-- <a name="camel_to_snake">`camel_to_snake`</a>:  Basic camelCase to snake_case conversion. This is useful for `eos` because `eos` return keys in camelCase format.
-
-    ```yaml
-    # before
-    - cli_parse_transform:
-        engine: native_json
-          commands:
-          - command: show interface
-            set_fact: True
-
-    ansible_facts:
-      interfaces:
-        Ethernet1:
-          autoNegotiate: unknown
-          bandwidth: 0
-          burnedInAddress: 52:54:00:1b:da:be
-
-    # after
-    - cli_parse_transform:
-        engine: native_json
-          commands:
-          - command: show interface
-            set_fact: True
-            transform:
-            - name: camel_to_snake
-
-    ansible_facts:
-      interfaces:
-        Ethernet1:
-          auto_negotiate: unknown
-          bandwidth: 0
-          burned_in_address: 52:54:00:1b:da:be
-    ```
 
 - <a name="expand_vlans">`expand_vlans`</a>: Expand vlans in range syntax into a list. This is useful when there is a need to `assert` that a vlan in allowed in a trunk later in the playbook.
 
