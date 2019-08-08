@@ -43,10 +43,14 @@ Ansible 2.9 required.
 
 [`ready_for_modules`](docs/module/ready_for_modules.md): An Ansible module that compares structured data to what an Ansible module expects and removes the extranious information.  It can also be used to split a single dictionary into multiple dictionaries, one for each module desired
 
+## Roles
+
+['operating_state'](docs/roles/operating_state.md): An Ansible role that collects information about the operating state of various resources on a network devices and returns parsed and structured data.
 
 ### Developer notes, Note to self
 
 As of Aug 8, two WIP changes need to be made for these to work:
 
 https://github.com/ansible/ansible/issues/59890
+
 https://github.com/ansible/ansible/pull/59932
