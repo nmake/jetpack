@@ -6,4 +6,5 @@
     - camel_to_snake
     - expand_vlans
     - flatten_list_of_dicts
+    - keep_keys
     - rekey_on_members
