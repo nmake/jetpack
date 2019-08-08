@@ -40,7 +40,7 @@ Additionally `cli_parse_transform` can generate statisitics from the parsed data
   - `command`: (required) The command to be issued on the network device
   - `set_fact`: (optional) Set the parser output as an Ansible fact for the host in play.
   - `transform`: (optional) A list of tranformations for the parsed data, processed in order. The current transformations can be done:
-    - [`camel_to_snake`](docs/filter/camel_to_snake.md) Convert camelCase keys to snake_case keys.
+    - [`camel_to_snake`](/docs/filter/camel_to_snake.md) Convert camelCase keys to snake_case keys.
     - [`expand_vlans`](#expand_vlans) Expand a range of vlans to a list.
     - [`flatten_list_of_dicts`](#flatten_list_of_dicts) Convert a list of dictionaries to a list of values.
     - [`keep_keys`](#keep_keys) Select which keys should be kept in the parsed data.
