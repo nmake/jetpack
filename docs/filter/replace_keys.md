@@ -61,8 +61,13 @@ ansible_facts:
           prefix: 192.168.1.1
           ip-disabled: 'FALSE'
 
-- debug:
+- name: Change the intf-name key to interface
+  debug:
     msg: "{{ data|nmake.jetpack.replace_keys([{'before': 'intf-name', 'after': 'interface'}]) }}"
+
+- name: Replace the dashes with underscore
+  debug:
+    msg: "{{ data|nmake.jetpack.replace_keys([{'before': '-', 'after': '_'}]) }}"
 
 # result
 msg:
@@ -76,5 +81,17 @@ msg:
       prefix: 192.168.1.1
       proto-state: down
       vrf-name-out: default
+
+msg:
+   TABLE_intf:
+     ROW_intf:
+       admin_state: down
+       intf_name: Eth1/128
+       iod: '132'
+       ip_disabled: 'FALSE'
+       link_state: down
+       prefix: 192.168.1.1
+       proto_state: down
+       vrf_name_out: default
 
 ```
