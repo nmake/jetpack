@@ -66,5 +66,31 @@ ansible_facts:
 ### Used a jinja filter
 
 ```yaml
+- set_fact:
+    data:
+      header_str: |-
+        Cisco Nexus Operating System (NX-OS) Software
+        TAC support: http://www.cisco.com/tac
+        Nexus 9000v is a demo version of the Nexus Operating System
+      bios_ver_str:
+      kickstart_ver_str: 9.2(2)
+      bios_cmpl_time:
+      manufacturer: Cisco Systems, Inc.
+
+- name: Set the root key
+  debug:
+    msg: "{{ data|nmake.jetpack.set_root_key('show_version') }}"
+
+# result
+msg:
+  show_version:
+    bios_cmpl_time: null
+    bios_ver_str: null
+    header_str: |-
+      Cisco Nexus Operating System (NX-OS) Software
+      TAC support: http://www.cisco.com/tac
+      Nexus 9000v is a demo version of the Nexus Operating System
+    kickstart_ver_str: 9.2(2)
+    manufacturer: Cisco Systems, Inc.
 
 ```
