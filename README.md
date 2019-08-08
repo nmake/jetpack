@@ -45,7 +45,7 @@ Ansible 2.9 required.
 
 ## Roles
 
-['operating_state'](docs/roles/operating_state.md): An Ansible role that collects information about the operating state of various resources on a network devices and returns parsed and structured data.
+[`operating_state`](docs/roles/operating_state.md): An Ansible role that collects information about the operating state of various resources on a network devices and returns parsed and structured data.
 
 ### Developer notes, Note to self
 
