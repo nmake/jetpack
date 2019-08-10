@@ -1,5 +1,5 @@
 ---
-fact_key: "operating_state"
+fact_key: "gathered_states"
 
 available_gather:
 - "arp"
@@ -15,4 +15,3 @@ available_gather:
 - "vlan"
 - "vlan.private_vlan"
 - "vpc"
-

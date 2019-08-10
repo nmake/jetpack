@@ -1,0 +1,36 @@
+- hosts: nxos101
+  gather_facts: False
+  tasks:
+  - nmake.jetpack.cli_parse_transform:
+      engine: native_json
+      commands:
+      - command: show interface
+        set_fact: True
+        transform:
+        - name: nxos_flatten_table_row
+          plural: True
+        - name: keep_keys
+          keys:
+          - admin_state
+          - ^state$
+          - desc
+          - interface
+  - set_fact:
+      interesting: "{{ interfaces|selectattr('desc', 'defined')
+                      |selectattr('desc', 'equalto', 'esx_uplink')
+                      |list
+                      |nmake.jetpack.rekey_on_members(['interface'])
+                      |nmake.jetpack.replace_keys([{'before': 'interface', 'after': ''}])
+                      |nmake.jetpack.replace_keys([{'before': 'desc', 'after': ''}])
+                      |nmake.jetpack.to_dotted }}"
+  - set_fact:
+      what_i_want:
+        "Ethernet1/128.admin_state": "down"
+        "Ethernet1/128.state": "down"
+
+  - nmake.jetpack.fact_diff:
+      before: "{{ interesting }}"
+      after: "{{ what_i_want }}"
+    register: everything_is_good
+  - assert:
+      that: not everything_is_good.changed
