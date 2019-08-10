@@ -201,7 +201,7 @@ class ActionModule(ActionBase):
                         .format(transform['name'], command['command']))
                     continue
                 if hasattr(self._task, 'collections'):
-                    for collection in self._task.collections:
+                    for collection in self._task.collections or []:
                         full_name = "{}.{}".format(collection, transform['name'])
                         filterfn = self._templar_filters.get(full_name)
                         if filterfn:
