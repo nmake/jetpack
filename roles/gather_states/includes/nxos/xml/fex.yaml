@@ -1,0 +1,24 @@
+---
+- name: "nxos.fex: show fex"
+  nmake.jetpack.cli_parse_transform:
+    engine: "native_xml"
+    commands:
+      - command: "show fex"
+        set_fact: True
+        transform:
+        - name: "nxos_flatten_table_row"
+        - name: unnest
+          keys:
+          - __readonly__
+          - show
+          - fex
+          - nf:data
+          - nf:rpc-reply
+        - name: replace_keys
+          keys:
+          - before: '^@xmlns.*'
+            after: ''
+        - name: set_root_key
+          key: hardware
+        - name: set_root_key
+          key: "{{ fact_key }}"
