@@ -1,8 +1,8 @@
 - hosts: all
   gather_facts: false
   roles:
-  - role: nmake.jetpack.operating_state
-    gather_state:
+  - role: nmake.jetpack.gather_states
+    gather_states:
     - all
   tasks:
   - debug:

@@ -1,0 +1,37 @@
+- hosts: all
+  gather_facts: false
+  vars:
+    state_per_os: # these should really go in the inventory :)
+      nxos:
+      - all
+      - '!fex'
+      - '!vlan.private_vlan'
+      - '!vpc'
+      eos:
+      - all
+      - '!cdp'
+      - '!fex'
+      - '!hardware'
+      - '!system'
+      - '!vpc'
+      - '!vlan.private_vlan'
+      ios:
+      - all
+      - '!fex'
+      - '!hardware'
+      - '!lldp'
+      - '!mac'
+      - '!spanning_tree'
+      - '!system'
+      - '!vlan'
+      - '!vlan.private_vlan'
+      - '!vpc'
+      vyos:
+      - all
+
+  roles:
+  - role: nmake.jetpack.gather_states
+    gather_states: "{{ state_per_os[ansible_network_os] }}"
+  tasks:
+  - debug:
+      var: ansible_facts

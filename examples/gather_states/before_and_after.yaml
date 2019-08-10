@@ -2,7 +2,7 @@
   gather_facts: false
   tasks:
   - include_role:
-      name: nmake.jetpack.operating_state
+      name: nmake.jetpack.gather_states
     vars:
       nxos_engine: xml
       fact_key: before
@@ -11,7 +11,7 @@
   - debug:
       msg: Make changes here
   - include_role:
-      name: nmake.jetpack.operating_state
+      name: nmake.jetpack.gather_states
     vars:
       nxos_engine: xml
       fact_key: after

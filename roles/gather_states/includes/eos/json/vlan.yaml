@@ -1,12 +1,12 @@
-- name: "ios.interfaces: show interfaces"
+- name: "eos.vlan: show vlan"
   nmake.jetpack.cli_parse_transform:
-    engine: "pyats"
-    network_os: iosxe
+    engine: "native_json"
     commands:
-      - command: "show interfaces"
+      - command: "show vlan"
         set_fact: True
         transform:
+        - name: camel_to_snake
         - name: set_root_key
-          key: interfaces
+          key: vlan
         - name: set_root_key
           key: "{{ fact_key }}"

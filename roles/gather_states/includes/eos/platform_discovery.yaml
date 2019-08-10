@@ -1,3 +1,3 @@
 - name: Set the engine for eos
   set_fact:
-    engine: "{{ eos_engine|default('json') }}"
+    engine: "{{ gather_states_engine|default('json') }}"

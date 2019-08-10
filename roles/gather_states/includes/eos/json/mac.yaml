@@ -1,12 +1,12 @@
-- name: "ios.interfaces: show interfaces"
+- name: "eos.mac: show mac address-table"
   nmake.jetpack.cli_parse_transform:
-    engine: "pyats"
-    network_os: iosxe
+    engine: "native_json"
     commands:
-      - command: "show interfaces"
+      - command: "show mac address-table"
         set_fact: True
         transform:
+        - name: camel_to_snake
         - name: set_root_key
-          key: interfaces
+          key: mac
         - name: set_root_key
           key: "{{ fact_key }}"

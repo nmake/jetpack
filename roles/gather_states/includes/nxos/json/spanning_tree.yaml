@@ -33,7 +33,7 @@
   nmake.jetpack.cli_parse_transform:
     engine: "native_json"
     commands:
-      - command: "show spanning-tree spanning-tree active detail"
+      - command: "show spanning-tree active detail"
         set_fact: True
         transform:
         - name: "nxos_flatten_table_row"
