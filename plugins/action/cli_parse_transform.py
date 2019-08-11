@@ -10,7 +10,6 @@ from ansible.module_utils._text import to_bytes
 from ansible.errors import AnsibleModuleError
 from ansible.template import Templar
 from ansible.utils.display import Display
-import q
 display = Display()
 
 
@@ -154,7 +153,6 @@ class ActionModule(ActionBase):
         self._pyats_device.cli = AttrDict({"execute": None})
         for command in self._commands:
             try:
-                q(network_os)
                 get_parser(command['command'], self._pyats_device)
             except Exception:  # pylint: disable=W0703
                 self._errors.append("Unable to find parser for command "
@@ -249,7 +247,6 @@ class ActionModule(ActionBase):
                         parsed = xmltodict.parse(stdout)
 
             except Exception as err:  # pylint: disable=W0703
-                q(err)
                 msg = ("Unable to parse output for command '{}' for {}"
                        .format(command['command'], self._network_os))
                 if self._ignore_parser_errors:
