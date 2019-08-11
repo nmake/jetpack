@@ -16,4 +16,4 @@
     register: result
 
   - assert:
-      that: "{{ result['details'][0]['parsed'] }}"
+      that: "{{result['details'][0]['parsed'] | length == 0 }}"
