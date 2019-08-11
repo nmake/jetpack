@@ -148,7 +148,6 @@ class ActionModule(ActionBase):
 
     def _check_commands_against_pyats(self):
         network_os = self._task.args.get('network_os') or self._network_os
-        import q; q(network_os)
         self._pyats_device = Device("uut", os=network_os)
         self._pyats_device.custom.setdefault("abstraction",
                                              {})["order"] = ["os"]
