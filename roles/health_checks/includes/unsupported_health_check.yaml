@@ -1,0 +1,3 @@
+- fail:
+    msg: "{{ gather_one }} using {{ engine }} for {{ ansible_network_os }} is not implemented."
+  ignore_errors: true
