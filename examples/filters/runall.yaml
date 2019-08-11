@@ -14,3 +14,4 @@
     - stats
     - str_to_native
     - unnest
+    - yaql
