@@ -1,0 +1,7 @@
+- name: Load the specific health check
+  include: "{{ item }}"
+  with_first_found:
+  - "includes/{{ ansible_network_os }}/{{ engine }}/{{ _check_one['name'] }}.yaml"
+  - "includes/unsupported_health_check.yaml"
+  vars:
+    _check_vars: "{{ _check_one['vars']|default({}) }}"

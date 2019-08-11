@@ -1,0 +1,19 @@
+- name: Set the description to match provided by user or default
+  set_fact:
+    _desc_to_match: "{{ _check_vars['description']|default('.*') }}"
+
+- nmake.jetpack.cli_parse_transform:
+    engine: native_json
+    commands:
+    - command: show interface
+      transform:
+      - name: nxos_flatten_table_row
+      - name: yaql
+        expression: |
+          $.interface.where($.get('desc', '') =~ '{{ _desc_to_match }}')
+          .where($.state = 'down')
+  register: result
+
+- name: "Ensure no interfaces with description matching '{{  _desc_to_match }}' are down"
+  assert:
+    that: "{{result['details'][0]['parsed'] | length == 0 }}"

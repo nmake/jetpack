@@ -1,0 +1,12 @@
+
+- name: Run the platform discovery to determine engine
+  include: "{{ item }}"
+  with_first_found:
+  - "includes/{{ ansible_network_os }}/platform_discovery.yaml"
+  - "includes/unsupported_platform.yaml"
+
+- name: Load the health check
+  include: "includes/load_health_check.yaml"
+  loop: "{{ checks }}"
+  loop_control:
+    loop_var: _check_one

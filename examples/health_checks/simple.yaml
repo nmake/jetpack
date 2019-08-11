@@ -1,0 +1,11 @@
+- hosts: nxos101
+  gather_facts: false
+  roles:
+  - role: nmake.jetpack.health_checks
+    checks:
+    - name: all_ints_match_desc_not_down
+      vars:
+        description: ^esx
+  - role: nmake.jetpack.health_checks
+    checks:
+    - name: all_ints_match_desc_not_down #check all interfaces default is .*

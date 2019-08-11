@@ -1,0 +1,19 @@
+- hosts: nxos101
+  gather_facts: False
+  tasks:
+  - set_fact:
+      desc_to_match: '^esx'
+  - nmake.jetpack.cli_parse_transform:
+      engine: native_json
+      commands:
+      - command: show interface
+        transform:
+        - name: nxos_flatten_table_row
+        - name: yaql
+          expression: |
+            $.interface.where($.get('desc', '') =~ '{{ desc_to_match }}')
+            .where($.state = 'down')
+    register: result
+
+  - assert:
+      that: "{{result['details'][0]['parsed'] | length == 0 }}"
