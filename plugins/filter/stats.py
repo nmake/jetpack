@@ -3,7 +3,6 @@ from ansible.errors import AnsibleFilterError
 from ansible.module_utils.network.common.utils import dict_merge
 from collections import Counter
 
-import q
 
 def _stats(parsed, key, statsd, missing_key="unknown"):
     if isinstance(parsed, list):
