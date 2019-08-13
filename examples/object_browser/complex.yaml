@@ -15,3 +15,17 @@
     data_to_render: "{{ gathered_states }}"
     report_dir: ./reports
     report_name: "{{ inventory_hostname }}_gathered_states"
+
+- hosts: nxos101
+  gather_facts: false
+  roles:
+  - role: nmake.jetpack.gather_states
+    only_stats: True
+    fact_key: stats_info
+    gather_states:
+    - all
+    - '!vpc'
+  - role: nmake.jetpack.object_browser
+    data_to_render: "{{ stats_info }}"
+    report_dir: ./reports
+    report_name: "{{ inventory_hostname }}_gathered_states_stats_only"
