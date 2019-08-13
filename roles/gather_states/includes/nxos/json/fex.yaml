@@ -11,6 +11,7 @@
           key: "fex"
         - name: set_root_key
           key: "{{ fact_key }}"
+  when: not only_stats
 
 - name: "nxos.fex: show fex detail"
   nmake.jetpack.cli_parse_transform:
@@ -26,3 +27,4 @@
           key: "fex"
         - name: set_root_key
           key: "{{ fact_key }}"
+  when: not only_stats

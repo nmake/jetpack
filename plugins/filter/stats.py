@@ -3,8 +3,9 @@ from ansible.errors import AnsibleFilterError
 from ansible.module_utils.network.common.utils import dict_merge
 from collections import Counter
 
+import q
 
-def _stats(parsed, key, statsd):
+def _stats(parsed, key, statsd, missing_key="unknown"):
     if isinstance(parsed, list):
         working = []
         for entry in parsed:
@@ -21,18 +22,23 @@ def _stats(parsed, key, statsd):
             counts = None
             if isinstance(res, dict):
                 try:
-                    counts = dict(Counter(cval[key]
-                                          for ckey, cval in res.items()))
+                    if any(key in cval for ckey, cval in res.items()):
+                        counts = dict(Counter(cval.get(key, missing_key)
+                                              for ckey, cval in res.items()))
                 except (AttributeError, TypeError, KeyError):
                     pass
             if isinstance(res, list):
                 try:
-                    counts = dict(Counter(cval[key] for cval in res))
+                    if any(key in cval for cval in res):
+                        counts = dict(Counter(cval.get(key, missing_key)
+                                              for cval in res))
                 except (AttributeError, TypeError, KeyError):
                     pass
             if counts:
-                stats_dict = {k + "_stats": {'count_by_' + key: counts,
-                                             'total': len(res)}}
+                ckey = 'count_by_' + key
+                count_dict = {ckey: counts}
+                count_dict[ckey]['total'] = len(res)
+                stats_dict = {"stats": count_dict}
                 working = dict_merge(working, stats_dict)
                 statsd = dict_merge(statsd, stats_dict)
         return working, statsd

@@ -41,7 +41,7 @@ ansible_facts:
         - state
 
 ansible_facts:
-  interface_stats:
+  stats:
     count_by_speed:
       '1000': 1
       auto: 130

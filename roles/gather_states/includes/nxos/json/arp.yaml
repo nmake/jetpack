@@ -7,6 +7,11 @@
         set_fact: True
         transform:
         - name: "nxos_flatten_table_row"
+        - name: stats
+          only_stats: "{{ only_stats }}"
+          keys:
+          - intf-out
+          - vrf-name-out
         - name: set_root_key
           key: arp
         - name: set_root_key

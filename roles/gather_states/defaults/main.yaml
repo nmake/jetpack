@@ -1,5 +1,6 @@
 ---
 fact_key: "gathered_states"
+only_stats: False
 
 available_gather:
 - "arp"
