@@ -13,6 +13,7 @@
           key: spanning_tree
         - name: set_root_key
           key: "{{ fact_key }}"
+  when: not only_stats
 
 - name: "nxos.spanning_tree: show spanning-tree inconsistentports"
   nmake.jetpack.cli_parse_transform:
@@ -28,6 +29,7 @@
           key: spanning_tree
         - name: set_root_key
           key: "{{ fact_key }}"
+  when: not only_stats
 
 - name: "nxos.spanning_tree: show spanning-tree active detail"
   nmake.jetpack.cli_parse_transform:
@@ -37,6 +39,28 @@
         set_fact: True
         transform:
         - name: "nxos_flatten_table_row"
+        - name: "str_to_native"
+        - name: stats
+          only_stats: "{{ only_stats }}"
+          keys:
+          - bpdu_filter
+          - bpdu_guard
+          - designated_bridge_priority
+          - designated_cost
+          - dispute
+          - inconsistency
+          - oper_bpdufilter
+          - oper_bpduguard
+          - oper_loopguard
+          - oper_networkport
+          - oper_p2p
+          - oper_portfast
+          - peer
+          - port_protocol
+          - port_tree_type
+          - role
+          - self_looped
+          - state
         - name: set_root_key
           key: detail
         - name: set_root_key
@@ -46,6 +70,7 @@
         - name: set_root_key
           key: "{{ fact_key }}"
 
+
 - name: "nxos.spanning_tree: show spanning-tree root detail"
   nmake.jetpack.cli_parse_transform:
     engine: "native_json"
@@ -54,6 +79,7 @@
         set_fact: True
         transform:
         - name: "nxos_flatten_table_row"
+        - name: "str_to_native"
         - name: set_root_key
           key: detail
         - name: set_root_key
@@ -62,3 +88,4 @@
           key: spanning_tree
         - name: set_root_key
           key: "{{ fact_key }}"
+  when: not only_stats

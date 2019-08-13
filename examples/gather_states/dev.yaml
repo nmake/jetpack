@@ -1,0 +1,14 @@
+- hosts: nxos101
+  gather_facts: false
+  roles:
+  - role: nmake.jetpack.gather_states
+    only_stats: True
+    fact_key: before
+    gather_states:
+    - all
+    - '!vpc'
+  tasks:
+  - debug:
+      var: ansible_facts
+  - debug:
+      msg: "{{ ansible_facts['before']|nmake.jetpack.to_dotted }}"

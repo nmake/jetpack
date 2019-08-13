@@ -13,3 +13,4 @@
           key: mac
         - name: set_root_key
           key: "{{ fact_key }}"
+  when: not only_stats
