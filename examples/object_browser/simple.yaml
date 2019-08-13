@@ -1,0 +1,4 @@
+- hosts: nxos101
+  gather_facts: false
+  roles:
+  - role: nmake.jetpack.object_browser

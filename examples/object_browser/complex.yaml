@@ -1,0 +1,17 @@
+- hosts: nxos101
+  gather_facts: false
+  vars:
+    state_per_os: # these should really go in the inventory :)
+      nxos:
+        gather_states:
+        - all
+        - '!fex'
+        - '!vlan.private_vlan'
+        - '!vpc'
+  roles:
+  - role: nmake.jetpack.gather_states
+    gather_states: "{{ state_per_os[ansible_network_os]['gather_states'] }}"
+  - role: nmake.jetpack.object_browser
+    data_to_render: "{{ gathered_states }}"
+    report_dir: ./reports
+    report_name: "{{ inventory_hostname }}_gathered_states"
