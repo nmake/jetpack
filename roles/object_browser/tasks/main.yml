@@ -1,0 +1,20 @@
+
+- name: Get a timestamp
+  set_fact:
+    current_date: "{{ lookup('pipe','date') }}"
+  delegate_to: localhost
+  run_once: True
+
+- name: Creates reports directory
+  file:
+    path: "{{ report_dir|default(playbook_dir + '/reports') }}"
+    state: directory
+  run_once: True
+
+- name: Save the file
+  template:
+    src: object_browser.html.j2
+    dest: "{{ report_dir|default(playbook_dir + '/reports') }}/{{ report_name|default(inventory_hostname + '_' + current_date) }}.html"
+  connection: local
+  vars:
+    data: "{{ data_to_render|default({'hostvars': hostvars[inventory_hostname]}) }}"
