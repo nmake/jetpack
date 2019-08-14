@@ -1,0 +1,15 @@
+- hosts: nxos101
+  gather_facts: false
+  tasks:
+  - nxos_config:
+      lines:
+      - description "management interface {{ 100 | random }}"
+      parents: interface mgmt0
+  - include_role:
+      role: nmake.jetpack.object_browser
+    vars:
+      data: "{{ network_change_log|default('') }}"
+      directory: ./reports
+      filename: "{{ inventory_hostname }}_change_log.html"
+      title: "Change log for {{ inventory_hostname }}"
+      summary: "Change made to device using Ansible playbook"

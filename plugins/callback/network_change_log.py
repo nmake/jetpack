@@ -161,8 +161,9 @@ class CallbackModule(CallbackBase):
                     commands = []
                 this_task['commands'] = commands
                 clog['tasks'].append(this_task)
+                clog['commands'].extend(commands)
 
-            self._vm.set_host_facts(host, {"network_change_log": clog})
+            self._vm.set_host_facts(host.name, {"network_change_log": clog})
             del self._task_cache[(result._task._uuid, host.name)]
             if 'ncl' in result._task.tags or self._logging:
                 self._print_host_change_log(host, True)
@@ -207,8 +208,9 @@ class CallbackModule(CallbackBase):
                         "changed": 0,
                         "skipped": 0,
                         "unreachable": 0},
-                    "tasks": []}
-                self._vm.set_host_facts(host, {"network_change_log": clog})
+                    "tasks": [],
+                    "commands": []}
+                self._vm.set_host_facts(host.name, {"network_change_log": clog})
             new_task = {"name": task.get_name().strip(),
                         "action": task.action,
                         "loop": task.loop,
