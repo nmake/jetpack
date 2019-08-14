@@ -52,9 +52,9 @@
 	<div class="grid-container">
 
 		<div class="header">
-			<h2>{{ rtitle }}</h2>
-			<h4>Date: {{ rdate }}</h4>
-			<h4>Summary: {{ rsummary }}</h4>
+			<h2>Object browser report for nxos101</h2>
+			<h4>Date: Wed Aug 14 05:21:00 PDT 2019</h4>
+			<h4>Summary: some info here</h4>
 		</div>
 		<div class="link">
 			<a href="http://github.com/nmake/jetpack" target="_blank" class="btn btn-black btn-sm">
@@ -66,7 +66,7 @@
 	</div>
 
   <script type="text/javascript">
-    var data = {{ rdata|nmake.jetpack.to_json_sorted }}
+    var data = {"hostvars": {"ansible_become": true, "ansible_become_method": "enable", "ansible_become_pass": "{{ lookup('env', 'ansible_become_pass') }}", "ansible_check_mode": false, "ansible_connection": "network_cli", "ansible_diff_mode": false, "ansible_facts": {}, "ansible_forks": 5, "ansible_inventory_sources": ["/home/bthornto/github/jetpack/examples/object_browser/inventory.yaml"], "ansible_network_os": "nxos", "ansible_password": "{{ lookup('env', 'ansible_ssh_pass') }}", "ansible_playbook_python": "/home/bthornto/github/vyos_local_connection/venv/bin/python", "ansible_python_interpreter": "python", "ansible_run_tags": ["all"], "ansible_skip_tags": [], "ansible_user": "{{ lookup('env', 'ansible_ssh_user') }}", "ansible_verbosity": 0, "ansible_version": {"full": "2.9.0.dev0", "major": 2, "minor": 9, "revision": 0, "string": "2.9.0.dev0"}, "current_date": "Wed Aug 14 05:21:00 PDT 2019", "group_names": ["ungrouped"], "groups": {"all": ["ios102", "nxos101", "eos101", "eos102", "vyos101"], "ungrouped": ["ios102", "nxos101", "eos101", "eos102", "vyos101"]}, "inventory_dir": "/home/bthornto/github/jetpack/examples/object_browser", "inventory_file": "/home/bthornto/github/jetpack/examples/object_browser/inventory.yaml", "inventory_hostname": "nxos101", "inventory_hostname_short": "nxos101", "omit": "__omit_place_holder__caa1446945727bcf81392d89691a4dbd0368193f", "playbook_dir": "/home/bthornto/github/jetpack/examples/object_browser"}}
     var target = '.body';
     jsonView.format(JSON.stringify(data), target);
   </script>

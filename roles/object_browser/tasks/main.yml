@@ -14,7 +14,10 @@
 - name: Save the file
   template:
     src: object_browser.html.j2
-    dest: "{{ report_dir|default(playbook_dir + '/reports') }}/{{ report_name|default(inventory_hostname + '_' + current_date) }}.html"
+    dest: "{{ directory|default(playbook_dir + '/reports') }}/{{ filename|default(inventory_hostname + '_' + current_date + 'html') }}"
   connection: local
   vars:
-    data: "{{ data_to_render|default({'hostvars': hostvars[inventory_hostname]}) }}"
+    rdata: "{{ data|default({'hostvars': hostvars[inventory_hostname]}) }}"
+    rtitle: "{{ title|default('Object browser report for ' + inventory_hostname) }}"
+    rdate: "{{ current_date }}"
+    rsummary: "{{ summary|default('report summary') }}"

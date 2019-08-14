@@ -2,3 +2,7 @@
   gather_facts: false
   roles:
   - role: nmake.jetpack.object_browser
+    directory: ./reports
+    filename: "{{ inventory_hostname }}.html"
+    # title: "my report title"
+    summary: "some info here"

@@ -52,9 +52,9 @@
 	<div class="grid-container">
 
 		<div class="header">
-			<h2>{{ rtitle }}</h2>
-			<h4>Date: {{ rdate }}</h4>
-			<h4>Summary: {{ rsummary }}</h4>
+			<h2>Change log for nxos101</h2>
+			<h4>Date: Wed Aug 14 10:36:34 PDT 2019</h4>
+			<h4>Summary: Change made to device using Ansible playbook</h4>
 		</div>
 		<div class="link">
 			<a href="http://github.com/nmake/jetpack" target="_blank" class="btn btn-black btn-sm">
@@ -66,7 +66,7 @@
 	</div>
 
   <script type="text/javascript">
-    var data = {{ rdata|nmake.jetpack.to_json_sorted }}
+    var data = {"commands": ["interface mgmt0", "description \"management interface 60\""], "summary": {"changed": 1, "failed": 0, "ok": 1, "skipped": 0, "total": 1, "unreachable": 0}, "tasks": [{"action": "nxos_config", "args": {"lines": ["description \"management interface {{ 100 | random }}\""], "parents": "interface mgmt0"}, "changed": true, "commands": ["interface mgmt0", "description \"management interface 60\""], "duration": "0:00:08.020456", "end": "2019-08-14 10:36:34.354069", "failed": false, "loop": null, "name": "nxos_config", "ok": true, "skipped": false, "start": "2019-08-14 10:36:26.333613", "unreachable": false}], "time": {"elapsed": "0:00:08.029519", "start": "2019-08-14 10:36:26.324550"}}
     var target = '.body';
     jsonView.format(JSON.stringify(data), target);
   </script>
