@@ -4,4 +4,7 @@
   - include_role:
       role: nmake.jetpack.object_browser
     vars:
-      report_format: all_in_one
+      dotted_key_paths:
+      - ansible_inventory_sources
+      - ansible_version.full
+      - groups

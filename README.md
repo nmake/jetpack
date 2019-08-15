@@ -45,6 +45,8 @@ Ansible 2.9 required.
 
 ## Roles
 
+[`object_browser`](docs/roles/object_browser.md): An Ansible role that generates an HTML file from a hosts facts.  The HTML file is in navigatable tree format and provides and easy way to review and report on both inventory information for a host or information gathered about a host during the playbook run.
+
 [`operating_state`](docs/roles/operating_state.md): An Ansible role that collects information about the operating state of various resources on a network devices and returns parsed and structured data.
 
 ## Developer notes

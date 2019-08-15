@@ -1,5 +1,5 @@
 - hosts: all
   gather_facts: false
-  roles:
-  - role: nmake.jetpack.object_browser
-    
+  tasks:
+  - include_role:
+      role: nmake.jetpack.object_browser
