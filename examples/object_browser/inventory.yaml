@@ -9,13 +9,7 @@ all:
     ansible_python_interpreter: python
 
   hosts:
-    ios102:
-      ansible_network_os: ios
     nxos101:
       ansible_network_os: nxos
-    eos101:
-      ansible_network_os: eos
-    eos102:
-      ansible_network_os: eos
-    vyos101:
-      ansible_network_os: vyos
+    nxos102:
+      ansible_network_os: nxos
