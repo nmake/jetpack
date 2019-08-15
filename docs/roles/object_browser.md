@@ -1,4 +1,4 @@
-![screenshot](https://github.com/nmake/jetpack/raw/master/docs/roles/object_broswer_screenshot.png)
+![screenshot](https://github.com/nmake/jetpack/raw/master/docs/roles/object_browser_screenshot.png)
 
 # Object browser
 
