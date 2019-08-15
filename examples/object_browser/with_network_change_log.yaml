@@ -8,7 +8,9 @@
   - include_role:
       role: nmake.jetpack.object_browser
     vars:
-      dotted_key_path:  network_change_log
+      dotted_key_paths:
+      - network_change_log.commands
+      - network_change_log.summary
       directory: ./reports
       filename: "change_log.html"
       title: "Change log for all hosts"

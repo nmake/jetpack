@@ -1,21 +1,75 @@
-
-<!DOCTYPE html>
+<!doctype html>
+<html lang="en">
 <html>
 <head>
 	<title>object browser</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/pgrabovets/json-view/dist/jsonview.css">
   <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/pgrabovets/json-view/dist/jsonview.js"></script>
+	<style>
+	<style>
+		a { color:#000; }
+    a:link { color:#000; }
+    a:visited { color:#000; }
+    a:hover { color:#000; }
+    a:active { color:#000; }
+		body {background:#EEE;color:#222;font:1em "Open Sans", Arial,Verdana,Sans-Serif;margin:0;padding:20px;}
+		.header {
+			grid-area: header;
+			border-bottom: 1px solid grey;
+		}
+		.body {
+			grid-area: body;
+		 }
+		.footer {
+			grid-area: footer;
+		}
+
+		.grid-container {
+		  display: grid;
+		  grid-template-areas:
+		    'header link'
+		    'body body'
+		    'footer footer';
+		}
+		.grid-container > div {}
+		h4 {
+	    margin-block-start: .3em;
+	    margin-block-end: .3em;
+		}
+		.link {
+			grid-area: link;
+			text-align: right;
+			border-bottom: 1px solid grey;
+		}
+	</style>
+
 </head>
 <body>
-  <div class="root"></div>
+	<div class="grid-container">
+
+		<div class="header">
+			<h2>Object browser report for nxos101</h2>
+			<h4>Date: Thu Aug 15 07:51:40 PDT 2019</h4>
+			<h4>Summary: report summary</h4>
+		</div>
+		<div class="link">
+			<a href="http://github.com/nmake/jetpack" target="_blank" class="btn btn-black btn-sm">
+				<i class="fab fa-github"></i>
+			</a>
+		</div>
+	  <div class="body"></div>
+	  <div class="footer"></div>
+	</div>
 
   <script type="text/javascript">
-    var data = {"arp": {"stats": {"count_by_intf-out": {"mgmt0": 2, "total": 2}}}, "cdp": {"interfaces": {"stats": {"count_by_cdp_intf_enabled": {"enabled": 129, "total": 129}, "count_by_port_up": {"down": 126, "total": 129, "up": 3}}}, "neighbors": {"stats": {"count_by_intf_id": {"Ethernet1/2": 3, "mgmt0": 4, "total": 7}, "count_by_platform_id": {"N9K-9000v": 5, "cisco CSR1000V": 2, "total": 7}}}}, "interfaces": {"stats": {"count_by_admin_state": {"down": 1, "total": 129, "up": 128}, "count_by_eth_bw": {"1000000": 3, "10000000": 126, "total": 129}, "count_by_eth_duplex": {"auto": 126, "full": 3, "total": 129}, "count_by_eth_hw_desc": {"100/1000/10000 Ethernet": 128, "Ethernet": 1, "total": 129}, "count_by_state": {"down": 126, "total": 129, "up": 3}, "count_by_state_rsn_desc": {"Administratively down": 1, "Link not connected": 125, "total": 129, "unknown": 3}}, "switchport": {"stats": {"count_by_access_vlan": {"1": 127, "total": 127}, "count_by_native_vlan": {"1": 127, "total": 127}, "count_by_oper_mode": {"access": 127, "total": 127}, "count_by_switchport": {"Enabled": 127, "total": 127}}}, "transceiver": {"stats": {"count_by_sfp": {"not applicable": 128, "total": 128}}}}, "lldp": {"interfaces": {"stats": {"count_by_lldp_dcbx": {"N": 1, "Y": 128, "total": 129}, "count_by_lldp_rx": {"Y": 129, "total": 129}, "count_by_lldp_tx": {"Y": 129, "total": 129}}}, "neighbors": {"stats": {"count_by_l_port_id": {"Eth1/2": 1, "mgmt0": 1, "total": 2}}}}, "spanning_tree": {"active": {"detail": {"stats": {"count_by_bpdu_filter": {"default1": 2, "total": 2}, "count_by_bpdu_guard": {"default1": 2, "total": 2}, "count_by_designated_bridge_priority": {"32768": 1, "32769": 1, "total": 2}, "count_by_designated_cost": {"0": 1, "4": 1, "total": 2}, "count_by_dispute": {"false": 2, "total": 2}, "count_by_inconsistency": {"0": 2, "total": 2}, "count_by_oper_bpdufilter": {"false": 2, "total": 2}, "count_by_oper_bpduguard": {"false": 2, "total": 2}, "count_by_oper_loopguard": {"false": 2, "total": 2}, "count_by_oper_networkport": {"false": 2, "total": 2}, "count_by_oper_p2p": {"total": 2, "true": 2}, "count_by_oper_portfast": {"false": 2, "total": 2}, "count_by_peer": {"stp": 2, "total": 2}, "count_by_port_protocol": {"rstp": 2, "total": 2}, "count_by_port_tree_type": {"total": 2, "vlan": 2}, "count_by_role": {"designated": 1, "root": 1, "total": 2}, "count_by_self_looped": {"false": 2, "total": 2}, "count_by_state": {"forwarding": 2, "total": 2}}}}}, "vlan": {"stats": {"count_by_vlanshowbr-vlanstate": {"active": 2, "total": 2}}}}
-    var target = '.root';
+    var data = {"nxos101": {"stats_info": {"arp": {"stats": {"count_by_intf-out": {"mgmt0": 2, "total": 2}}}, "cdp": {"interfaces": {"stats": {"count_by_cdp_intf_enabled": {"enabled": 129, "total": 129}, "count_by_port_up": {"down": 126, "total": 129, "up": 3}}}, "neighbors": {"stats": {"count_by_intf_id": {"Ethernet1/2": 3, "mgmt0": 4, "total": 7}, "count_by_platform_id": {"N9K-9000v": 5, "cisco CSR1000V": 2, "total": 7}}}}, "interfaces": {"stats": {"count_by_admin_state": {"down": 1, "total": 129, "up": 128}, "count_by_eth_bw": {"1000000": 3, "10000000": 126, "total": 129}, "count_by_eth_duplex": {"auto": 126, "full": 3, "total": 129}, "count_by_eth_hw_desc": {"100/1000/10000 Ethernet": 128, "Ethernet": 1, "total": 129}, "count_by_state": {"down": 126, "total": 129, "up": 3}, "count_by_state_rsn_desc": {"Administratively down": 1, "Link not connected": 125, "total": 129, "unknown": 3}}, "switchport": {"stats": {"count_by_access_vlan": {"1": 127, "total": 127}, "count_by_native_vlan": {"1": 127, "total": 127}, "count_by_oper_mode": {"access": 127, "total": 127}, "count_by_switchport": {"Enabled": 127, "total": 127}}}, "transceiver": {"stats": {"count_by_sfp": {"not applicable": 128, "total": 128}}}}, "lldp": {"interfaces": {"stats": {"count_by_lldp_dcbx": {"N": 1, "Y": 128, "total": 129}, "count_by_lldp_rx": {"Y": 129, "total": 129}, "count_by_lldp_tx": {"Y": 129, "total": 129}}}, "neighbors": {"stats": {"count_by_l_port_id": {"Eth1/2": 1, "mgmt0": 1, "total": 2}}}}, "spanning_tree": {"active": {"detail": {"stats": {"count_by_bpdu_filter": {"default1": 2, "total": 2}, "count_by_bpdu_guard": {"default1": 2, "total": 2}, "count_by_designated_bridge_priority": {"32768": 1, "32769": 1, "total": 2}, "count_by_designated_cost": {"0": 1, "4": 1, "total": 2}, "count_by_dispute": {"false": 2, "total": 2}, "count_by_inconsistency": {"0": 2, "total": 2}, "count_by_oper_bpdufilter": {"false": 2, "total": 2}, "count_by_oper_bpduguard": {"false": 2, "total": 2}, "count_by_oper_loopguard": {"false": 2, "total": 2}, "count_by_oper_networkport": {"false": 2, "total": 2}, "count_by_oper_p2p": {"total": 2, "true": 2}, "count_by_oper_portfast": {"false": 2, "total": 2}, "count_by_peer": {"stp": 2, "total": 2}, "count_by_port_protocol": {"rstp": 2, "total": 2}, "count_by_port_tree_type": {"total": 2, "vlan": 2}, "count_by_role": {"designated": 1, "root": 1, "total": 2}, "count_by_self_looped": {"false": 2, "total": 2}, "count_by_state": {"forwarding": 2, "total": 2}}}}}, "vlan": {"stats": {"count_by_vlanshowbr-vlanstate": {"active": 2, "total": 2}}}}}}
+    var target = '.body';
     jsonView.format(JSON.stringify(data), target);
-
   </script>
+
 </body>
 </html>

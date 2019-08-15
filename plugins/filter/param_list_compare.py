@@ -1,4 +1,3 @@
-import q
 
 def param_list_compare(base, other):
 
@@ -25,7 +24,7 @@ def param_list_compare(base, other):
     return combined
 
 class FilterModule(object):
-    ''' Network filter '''
+    ''' param_list_compare '''
 
     def filters(self):
         return {

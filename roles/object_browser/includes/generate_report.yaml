@@ -1,0 +1,7 @@
+- name: Save the file
+  template:
+    src: object_browser_template.html.j2
+    dest: "{{ directory|default(report_directory) }}/{{ filename|default(report_filename[report_format]) }}"
+  vars:
+    date: "{{ current_date_long }}"
+  delegate_to: localhost
