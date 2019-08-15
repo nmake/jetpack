@@ -1,0 +1,3 @@
+
+- include: "generate_report.yaml"
+  run_once: true

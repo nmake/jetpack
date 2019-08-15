@@ -1,7 +1,8 @@
 
 - name: Get a timestamp
   set_fact:
-    current_date: "{{ lookup('pipe','date') }}"
+    current_date_long: "{{ lookup('pipe','date') }}"
+    current_date_ts: "{{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
   delegate_to: localhost
   run_once: True
 
@@ -14,5 +15,5 @@
 - name: Include the report type file generator
   include: "{{ item }}"
   with_first_found:
-  - "{{ report_format }}.yaml"
-  - unfound_report_format.yaml
+  - "includes/{{ report_format }}.yaml"
+  - includes/unfound_report_format.yaml

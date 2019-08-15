@@ -12,9 +12,9 @@
   - role: nmake.jetpack.gather_states
     gather_states: "{{ state_per_os[ansible_network_os]['gather_states'] }}"
   - role: nmake.jetpack.object_browser
-    data_to_render: "{{ gathered_states }}"
-    report_dir: ./reports
-    report_name: "{{ inventory_hostname }}_gathered_states"
+    dotted_key_paths:
+    - gathered_states
+    filename: "{{ inventory_hostname }}_gathered_states.html"
 
 - hosts: nxos101
   gather_facts: false
@@ -26,6 +26,6 @@
     - all
     - '!vpc'
   - role: nmake.jetpack.object_browser
-    data_to_render: "{{ stats_info }}"
-    report_dir: ./reports
-    report_name: "{{ inventory_hostname }}_gathered_states_stats_only"
+    dotted_key_paths:
+    - stats_info
+    filename: "{{ inventory_hostname }}_gathered_states_stats_only.html"

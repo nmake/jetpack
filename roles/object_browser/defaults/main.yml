@@ -1,1 +1,20 @@
 report_format: per_host
+report_directory: "{{ playbook_dir + '/reports' }}"
+report_filename:
+  all_in_one: "all_hosts_{{ current_date_ts }}.html"
+  per_host: "{{ inventory_hostname }}_{{ current_date_ts }}.html"
+report_variables:
+  all_in_one:
+    report_type: all_in_one
+    hostvars: "{{ hostvars }}"
+    keypaths: "{{ dotted_key_paths|default([]) }}"
+    playhosts: "{{ ansible_play_hosts_all }}"
+    summary: "{{ summary|default('report summary') }}"
+    title: "{{ title|default('Object browser report for all hosts') }}"
+  per_host:
+    report_type: per_host
+    hostvars: "{{ hostvars[inventory_hostname] }}"
+    keypaths: "{{ dotted_key_paths|default([]) }}"
+    playhosts: "{{ [inventory_hostname] }}"
+    summary: "{{ summary|default('report summary') }}"
+    title: "{{ title|default('Object browser report for ' + inventory_hostname) }}"

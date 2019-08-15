@@ -52,9 +52,9 @@
 	<div class="grid-container">
 
 		<div class="header">
-			<h2>{{ rtitle }}</h2>
-			<h4>Date: {{ rdate }}</h4>
-			<h4>Summary: {{ rsummary }}</h4>
+			<h2>{{ report_variables[report_format]['title'] }}</h2>
+			<h4>Date: {{ date }}</h4>
+			<h4>Summary: {{ report_variables[report_format]['summary'] }}</h4>
 		</div>
 		<div class="link">
 			<a href="http://github.com/nmake/jetpack" target="_blank" class="btn btn-black btn-sm">
@@ -66,7 +66,7 @@
 	</div>
 
   <script type="text/javascript">
-    var data = {{ rhostvars|nmake.jetpack.get_from_dict_using_dotted(rkeypath)|nmake.jetpack.to_json_sorted }}
+    var data = {{ report_variables[report_format]['report_type']|nmake.jetpack.object_browser_filter(report_variables[report_format]['hostvars'], report_variables[report_format]['playhosts'], report_variables[report_format]['keypaths']) }}
     var target = '.body';
     jsonView.format(JSON.stringify(data), target);
   </script>
