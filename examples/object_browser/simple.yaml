@@ -1,8 +1,9 @@
-- hosts: nxos101
+- hosts: all
   gather_facts: false
   roles:
   - role: nmake.jetpack.object_browser
     directory: ./reports
+    dotted_key_path: groups
     filename: "{{ inventory_hostname }}.html"
     # title: "my report title"
     summary: "some info here"

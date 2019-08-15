@@ -11,13 +11,8 @@
     state: directory
   run_once: True
 
-- name: Save the file
-  template:
-    src: object_browser.html.j2
-    dest: "{{ directory|default(playbook_dir + '/reports') }}/{{ filename|default(inventory_hostname + '_' + current_date + 'html') }}"
-  connection: local
-  vars:
-    rdata: "{{ data|default({'hostvars': hostvars[inventory_hostname]}) }}"
-    rtitle: "{{ title|default('Object browser report for ' + inventory_hostname) }}"
-    rdate: "{{ current_date }}"
-    rsummary: "{{ summary|default('report summary') }}"
+- name: Include the report type file generator
+  include: "{{ item }}"
+  with_first_found:
+  - "{{ report_format }}.yaml"
+  - unfound_report_format.yaml
