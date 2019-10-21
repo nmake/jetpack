@@ -1,6 +1,6 @@
 # Operating state
 
-`gather_states` is an Ansible role that collects information about various resources on a network devices and returns parsed and structured data.
+`operating_state` is an Ansible role that collects information about various resources on a network devices and returns parsed and structured data.
 
 #### The following resources are current supported:
 - arp
